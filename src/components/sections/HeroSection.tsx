@@ -41,9 +41,23 @@ const HeroSection = ({ onAction }: HeroSectionProps) => {
                     </AnimatedSection>
 
                     <AnimatedSection delay={0.2}>
-                        <p className="text-xl text-slate-500 leading-relaxed max-w-xl">
-                            Você não é um problema a ser "arrumado". Você é alguém que, em algum ponto do caminho, perdeu acesso ao seu próprio comando. Meu trabalho é ajudar você a retornar a ser <span className="font-bold text-primary">REI ou RAINHA do seu IMPÉRIO</span>, com profissionalismo, segurança, ética e clareza.
-                        </p>
+                        <div className="space-y-6 text-lg text-slate-600 leading-relaxed max-w-xl">
+                            <p>
+                                Cada pessoa que chega até mim traz uma história única, uma dor única e uma força única.
+                            </p>
+                            <p>
+                                E elas se esquecem disso: <span className="font-bold text-primary">dentro de todos nós existe um TRONO.</span>
+                            </p>
+                            <p>
+                                Você não é um problema a ser "arrumado". Você é alguém que, em algum ponto do caminho, perdeu acesso/controle do seu próprio comando. Mas, quando você entende como sua mente aprende, te protege e repete padrões, você começa a recuperar algo essencial:
+                            </p>
+                            <p className="text-xl font-bold text-primary">
+                                O Comando do seu TRONO.
+                            </p>
+                            <p>
+                                Meu trabalho é ajudar você a <span className="font-bold text-primary">retornar a ser REI OU RAINHA do seu IMPÉRIO</span>, com profissionalismo, segurança, ética e clareza...
+                            </p>
+                        </div>
                     </AnimatedSection>
 
                     <AnimatedSection delay={0.3} className="flex flex-wrap gap-4">

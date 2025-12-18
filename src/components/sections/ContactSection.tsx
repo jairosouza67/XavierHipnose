@@ -21,12 +21,15 @@ const ContactSection = () => {
                                         href="https://wa.me/5577988672210"
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="inline-flex items-center gap-3 bg-primary text-white px-6 py-3 rounded-full font-bold hover:bg-primary/90 transition-all hover:gap-4 shadow-lg hover:shadow-xl"
+                                        className="inline-flex items-center gap-3 bg-[#25D366] text-white px-8 py-4 rounded-full font-bold hover:bg-[#20BD5A] transition-all hover:gap-4 shadow-lg hover:shadow-xl text-lg"
                                     >
-                                        <Phone size={20} />
+                                        <Phone size={24} />
                                         Agende sua consulta inicial
                                     </a>
                                 </div>
+                                <p className="text-primary font-semibold text-lg mt-8 italic">
+                                    Lembre-se: dentro de você existe um TRONO. Você é o REI/RAINHA do seu Império.
+                                </p>
                             </div>
 
                             <div className="space-y-8">

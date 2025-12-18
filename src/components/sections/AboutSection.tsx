@@ -13,13 +13,13 @@ const AboutSection = () => {
                         <SectionHeading subtitle="O Especialista" title="Filipe Xavier" />
                         <div className="space-y-6 text-white/70 text-lg leading-relaxed">
                             <p>
-                                Desde 2017, quando realizei minha primeira formação em Hipnose, fiquei impressionado com o poder extraordinário do cérebro humano. Foi a partir dessa experiência que nasceu minha curiosidade e paixão pelo estudo da mente.
+                                Desde 2017, quando realizei minha primeira formação em Hipnose, fiquei impressionado com o poder extraordinário do cérebro humano. Foi a partir dessa experiência que nasceu minha curiosidade e paixão pelo estudo da mente (cérebro).
                             </p>
                             <p>
-                                Desde então, tenho dedicado horas dos meus dias para adquirir conhecimentos e acumular formações em Hipnose Clínica, Neurociência e Comportamento Humano, sempre com o objetivo de transformar vidas de forma profissional, ética e baseada em evidências científicas.
+                                Desde então, tenho dedicado algumas horas dos meus dias para adquirir conhecimentos e acumular algumas formações em Hipnose Clínica, Neurociência e Comportamento Humano, sempre com o objetivo em transformar a minha vida, através do saber de como controlar essa "coisa" chamada cérebro e a vida das pessoas de forma profissional, ética e baseada em evidências/estudos científicos.
                             </p>
                             <p className="text-white/90 font-semibold">
-                                Respeito a individualidade de cada pessoa que entra em contato comigo, pois dentro de nós contém um TRONO e você é o REI/RAINHA do seu Império.
+                                E óbvio, respeitando a individualidade de cada pessoa que entra em contato comigo, pois dentro de nós contém um TRONO e você é o REI/RAINHA do seu Império.
                             </p>
                         </div>
 
@@ -27,8 +27,8 @@ const AboutSection = () => {
                             <h4 className="text-secondary font-bold text-xl mb-6">Minhas Certificações</h4>
                             {[
                                 { icon: Award, title: 'Master em Hipnose Clínica Avançada', d: 'Instituto PIH® (SBPHC)' },
-                                { icon: GraduationCap, title: 'Hipnoterapeuta Especialista', d: 'Neuroscience International Academy (EUA)' },
-                                { icon: Award, title: 'Método MIDAS®', d: 'Neuroterapia - Instituto Versate' },
+                                { icon: GraduationCap, title: 'Hipnoterapeuta Especialista em Neurociências', d: 'Neuroscience International Academy (EUA)' },
+                                { icon: Award, title: 'Método MIDAS®', d: 'Neuroterapia e Hipnose - Instituto Versate' },
                                 { icon: GraduationCap, title: 'Neuroterapeuta', d: 'Faculdade JK (Brasília)' },
                                 { icon: Users, title: 'Analista HMI Comportamental', d: 'Lavinte Academy' },
                             ].map((cred, i) => (

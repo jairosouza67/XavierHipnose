@@ -12,6 +12,10 @@ const SERVICES: Service[] = [
     { id: 4, title: 'Traumas', description: 'Ressignifique experiências traumáticas e libere-se do peso emocional do passado.', icon: 'ShieldCheck' },
     { id: 5, title: 'Compulsões', description: 'Quebre padrões compulsivos e recupere o controle sobre suas escolhas e comportamentos.', icon: 'Scale' },
     { id: 6, title: 'Vícios', description: 'Liberte-se do tabagismo e outros comportamentos viciantes permanentemente.', icon: 'Moon' },
+    { id: 7, title: 'Insônia', description: 'Reconquiste noites de sono reparador e acorde revigorado todos os dias.', icon: 'Moon' },
+    { id: 8, title: 'Dores Crônicas', description: 'Gerencie e reduza dores crônicas através da reprogramação mental.', icon: 'Heart' },
+    { id: 9, title: 'Estresse', description: 'Aprenda a controlar suas respostas ao estresse e recupere seu equilíbrio emocional.', icon: 'Brain' },
+    { id: 10, title: 'Angústia', description: 'Transforme sentimentos de angústia em clareza mental e bem-estar emocional.', icon: 'Heart' },
 ];
 
 const iconMap: Record<string, any> = { Brain, Heart, Zap, Moon, Scale, Apple, GraduationCap, Users };
