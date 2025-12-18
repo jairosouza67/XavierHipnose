@@ -57,9 +57,9 @@ const AboutSection = () => {
                 <AnimatedSection direction="right" delay={0.2} className="relative">
                     <div className="rounded-[40px] overflow-hidden shadow-2xl border-[12px] border-white/10 relative z-10">
                         <img
-                            src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80"
+                            src="/profile.jpg"
                             alt="Filipe Xavier - Hipnoterapeuta"
-                            className="w-full aspect-[4/5] object-cover object-top"
+                            className="w-full aspect-[4/5] object-cover object-center"
                         />
                     </div>
                     <div className="absolute -bottom-10 -left-10 bg-secondary p-8 rounded-[2rem] text-primary max-w-xs shadow-2xl z-20 hidden xl:block">
