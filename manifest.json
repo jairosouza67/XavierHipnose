@@ -1,0 +1,17 @@
+{
+  "name": "Xavier Hipnose",
+  "short_name": "XavierHipnose",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#0f172a",
+  "description": "Hipnoterapia Clínica em Vitória da Conquista com Felipe Souza Xavier.",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/3063/3063822.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
