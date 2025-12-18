@@ -104,8 +104,8 @@ const HeroSection = ({ onAction }: HeroSectionProps) => {
                 <AnimatedSection direction="right" delay={0.2} className="relative">
                     <div className="relative z-10 rounded-[3rem] overflow-hidden shadow-2xl border-8 border-white">
                         <img
-                            src="https://images.unsplash.com/photo-1527137342181-19aab11a8ee1?w=800&q=80"
-                            alt="Sessão de hipnoterapia em ambiente relaxante e acolhedor"
+                            src="/profile.jpg"
+                            alt="Filipe Xavier - Hipnoterapeuta Clínico"
                             className="w-full h-full object-cover aspect-[4/5]"
                             loading="eager"
                         />
