@@ -33,10 +33,10 @@ const HeroSection = ({ onAction }: HeroSectionProps) => {
                     <AnimatedSection delay={0.1}>
                         <h1
                             id="hero-heading"
-                            className="text-6xl md:text-7xl font-serif text-primary leading-[1.1]"
+                            className="font-serif text-primary leading-tight"
                         >
-                            O Comando do seu <br />
-                            <span className="text-secondary italic">TRONO</span>
+                            <span className="text-4xl md:text-5xl">O comando do seu</span><br />
+                            <span className="text-7xl md:text-8xl text-secondary italic font-bold">TRONO</span>
                         </h1>
                     </AnimatedSection>
 
