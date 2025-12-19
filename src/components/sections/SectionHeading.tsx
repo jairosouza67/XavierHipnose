@@ -18,7 +18,7 @@ const SectionHeading = ({ subtitle, title, headingId }: SectionHeadingProps) => 
             <AnimatedSection delay={0.1}>
                 <h2
                     id={headingId}
-                    className="text-4xl md:text-5xl font-serif text-primary leading-tight"
+                    className="text-4xl md:text-5xl font-serif text-white leading-tight"
                 >
                     {title}
                 </h2>

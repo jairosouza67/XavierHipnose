@@ -7,25 +7,40 @@ export const useScrollSpy = (
     offsetPx: number = 0
 ) => {
     useEffect(() => {
-        const options = {
-            rootMargin: `-${25 + offsetPx}% 0px -${25 + offsetPx}% 0px`,
-            threshold: 0
+        const handleScroll = () => {
+            // Check if at top of page
+            if (window.scrollY < 100) {
+                onActiveChange('home');
+                return;
+            }
+
+            // Find which section is currently most visible
+            const sections = sectionIds.map(id => {
+                const element = document.getElementById(id);
+                if (!element) return null;
+                
+                const rect = element.getBoundingClientRect();
+                const viewportCenter = window.innerHeight / 2;
+                const elementCenter = rect.top + (rect.height / 2);
+                const distance = Math.abs(viewportCenter - elementCenter);
+                
+                return { id, distance, rect };
+            }).filter(Boolean) as { id: string; distance: number; rect: DOMRect }[];
+
+            // Find closest section to viewport center
+            const closest = sections.reduce((prev, curr) => 
+                curr.distance < prev.distance ? curr : prev
+            );
+
+            if (closest) {
+                onActiveChange(closest.id as ViewState);
+            }
         };
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    onActiveChange(entry.target.id as ViewState);
-                }
-            });
-        }, options);
-
-        sectionIds.forEach((id) => {
-            const el = document.getElementById(id);
-            if (el) observer.observe(el);
-        });
-
-        return () => observer.disconnect();
+        handleScroll(); // Run once on mount
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        
+        return () => window.removeEventListener('scroll', handleScroll);
     }, [sectionIds, onActiveChange, offsetPx]);
 };
 
