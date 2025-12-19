@@ -34,18 +34,32 @@ const ContactSection = () => {
 
                             <div className="space-y-8">
                                 {[
-                                    { icon: MapPin, title: 'Endereço', d: 'Vitória da Conquista, BA - Brasil' },
-                                    { icon: Phone, title: 'WhatsApp', d: '(77) 98867-2210' },
-                                    { icon: Instagram, title: 'Instagram', d: '@xavierhipnose' },
+                                    { icon: MapPin, title: 'Endereço', d: 'Vitória da Conquista, BA - Brasil', link: null },
+                                    { icon: Phone, title: 'WhatsApp', d: '(77) 98867-2210', link: 'https://wa.me/5577988672210' },
+                                    { icon: Instagram, title: 'Instagram', d: '@filipexavier.of', link: 'https://www.instagram.com/filipexavier.of?igsh=c3QzZ3p6YTUxMjM3&utm_source=qr' },
                                 ].map((item, i) => (
                                     <div key={i} className="flex gap-6 items-center group">
-                                        <div className="w-16 h-16 bg-slate-50 rounded-2xl flex items-center justify-center text-secondary group-hover:bg-primary group-hover:text-secondary transition-all duration-300">
-                                            <item.icon size={28} />
-                                        </div>
-                                        <div>
-                                            <h4 className="font-bold text-primary">{item.title}</h4>
-                                            <p className="text-slate-500">{item.d}</p>
-                                        </div>
+                                        {item.link ? (
+                                            <a href={item.link} target="_blank" rel="noopener noreferrer" className="flex gap-6 items-center w-full">
+                                                <div className="w-16 h-16 bg-slate-50 rounded-2xl flex items-center justify-center text-secondary group-hover:bg-primary group-hover:text-secondary transition-all duration-300">
+                                                    <item.icon size={28} />
+                                                </div>
+                                                <div>
+                                                    <h4 className="font-bold text-primary">{item.title}</h4>
+                                                    <p className="text-slate-500">{item.d}</p>
+                                                </div>
+                                            </a>
+                                        ) : (
+                                            <>
+                                                <div className="w-16 h-16 bg-slate-50 rounded-2xl flex items-center justify-center text-secondary group-hover:bg-primary group-hover:text-secondary transition-all duration-300">
+                                                    <item.icon size={28} />
+                                                </div>
+                                                <div>
+                                                    <h4 className="font-bold text-primary">{item.title}</h4>
+                                                    <p className="text-slate-500">{item.d}</p>
+                                                </div>
+                                            </>
+                                        )}
                                     </div>
                                 ))}
                             </div>
