@@ -14,7 +14,7 @@ const ContactSection = () => {
                             <div>
                                 <SectionHeading subtitle="Contato" title="Vamos conversar?" />
                                 <p className="text-slate-500 mt-8 text-lg">
-                                    Tire suas dúvidas ou agende sua primeira sessão. Atendimento presencial em Vitória da Conquista e online para todo o mundo.
+                                    Tire suas dúvidas ou agende sua primeira sessão. Atendimento presencial em Vitória da Conquista, BA.
                                 </p>
                                 <div className="mt-8">
                                     <a 
