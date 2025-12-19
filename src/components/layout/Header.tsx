@@ -22,7 +22,7 @@ const Header = ({ navItems, activeTab, onTabChange }: HeaderProps) => {
           <TabNavigation items={navItems} activeTab={activeTab} onTabChange={onTabChange} />
         </div>
 
-        <div className="flex items-center gap-4">
+        <div className="hidden lg:flex items-center gap-4">
           <Button variant="primary" size="sm" onClick={() => onTabChange('contato')}>
             Agendar Agora
           </Button>

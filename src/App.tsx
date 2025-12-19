@@ -1,6 +1,7 @@
 import React, { Suspense, lazy } from 'react';
 import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
+import MobileNavBar from './components/layout/MobileNavBar';
 import HeroSection from './components/sections/HeroSection';
 import LoadingSpinner from './components/ui/LoadingSpinner';
 import SkipToContent from './components/ui/SkipToContent';
@@ -33,7 +34,7 @@ const App = () => {
     );
 
     return (
-        <div className="min-h-screen bg-white">
+        <div className="min-h-screen bg-white pb-20 lg:pb-0">
             {/* Skip to content link for keyboard navigation (a11y) */}
             <SkipToContent targetId="main-content" />
 
@@ -68,6 +69,8 @@ const App = () => {
                     <ContactSection />
                 </Suspense>
             </main>
+
+            <MobileNavBar activeTab={activeTab} onTabChange={handleTabChange} />
 
             <Footer onNavigate={handleTabChange} />
 
