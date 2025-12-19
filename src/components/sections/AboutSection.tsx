@@ -5,7 +5,7 @@ import { Award, GraduationCap, Users, Heart } from 'lucide-react';
 
 const AboutSection = () => {
     return (
-        <section id="sobre" className="py-24 md:py-28 bg-primary text-white overflow-hidden">
+        <section id="sobre" className="py-24 md:py-28 bg-primary text-white overflow-hidden transition-colors duration-300">
             <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 xl:gap-16 items-start">
                 <AnimatedSection direction="left">
                     <div className="space-y-7">

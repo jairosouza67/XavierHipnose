@@ -24,7 +24,7 @@ const ServicesSection = () => {
     return (
         <section
             id="servicos"
-            className="py-32 bg-slate-50"
+            className="py-32 bg-slate-50 dark:bg-slate-900 transition-colors duration-300"
             aria-labelledby="services-heading"
         >
             <div className="max-w-7xl mx-auto px-6">
@@ -51,22 +51,22 @@ const ServicesSection = () => {
                                         aria-labelledby={`service-${service.id}-title`}
                                     >
                                         <div
-                                            className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mb-8 text-primary group-hover:bg-secondary transition-colors duration-500"
+                                            className="w-16 h-16 bg-white dark:bg-slate-700 rounded-2xl flex items-center justify-center mb-8 text-primary dark:text-white group-hover:bg-secondary transition-colors duration-500"
                                             aria-hidden="true"
                                         >
                                             <Icon size={32} />
                                         </div>
                                         <h3
                                             id={`service-${service.id}-title`}
-                                            className="text-2xl font-bold mb-4 text-primary group-hover:text-secondary transition-colors duration-500"
+                                            className="text-2xl font-bold mb-4 text-primary dark:text-white group-hover:text-secondary transition-colors duration-500"
                                         >
                                             {service.title}
                                         </h3>
-                                        <p className="text-slate-500 leading-relaxed mb-8">
+                                        <p className="text-slate-500 dark:text-slate-300 leading-relaxed mb-8">
                                             {service.description}
                                         </p>
                                         <button
-                                            className="flex items-center gap-2 text-primary font-bold text-sm cursor-pointer hover:gap-4 transition-all bg-transparent border-none p-0"
+                                            className="flex items-center gap-2 text-primary dark:text-white font-bold text-sm cursor-pointer hover:gap-4 transition-all bg-transparent border-none p-0"
                                             aria-label={`Saber mais sobre ${service.title}`}
                                         >
                                             Saber mais <Zap size={16} className="text-secondary" aria-hidden="true" />
@@ -83,4 +83,3 @@ const ServicesSection = () => {
 };
 
 export default ServicesSection;
-

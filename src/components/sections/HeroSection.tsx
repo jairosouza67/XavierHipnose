@@ -76,7 +76,7 @@ const HeroSection = ({ onAction }: HeroSectionProps) => {
                 </div>
 
                 <AnimatedSection direction="right" delay={0.2} className="relative">
-                    <div className="relative z-10 rounded-[3rem] overflow-hidden shadow-2xl border-8 border-white">
+                    <div className="relative z-10 rounded-[3rem] overflow-hidden shadow-2xl border-8 border-white dark:border-slate-800">
                         <img
                             src="/profile.jpg"
                             alt="Filipe Xavier - Hipnoterapeuta Clínico"
@@ -88,11 +88,11 @@ const HeroSection = ({ onAction }: HeroSectionProps) => {
                     <motion.div
                         animate={{ y: [0, -20, 0] }}
                         transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                        className="absolute -bottom-10 -left-10 bg-white p-8 rounded-3xl shadow-2xl z-20 max-w-[240px]"
+                        className="absolute -bottom-10 -left-10 bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-2xl z-20 max-w-[240px]"
                         role="complementary"
                         aria-label="Citação inspiradora"
                     >
-                        <p className="text-primary font-bold italic text-lg leading-tight">
+                        <p className="text-primary dark:text-white font-bold italic text-lg leading-tight">
                             "A jornada para a mudança começa no seu subconsciente."
                         </p>
                     </motion.div>
@@ -103,4 +103,3 @@ const HeroSection = ({ onAction }: HeroSectionProps) => {
 };
 
 export default HeroSection;
-

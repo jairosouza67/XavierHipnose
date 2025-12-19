@@ -19,7 +19,7 @@ const SectionHeading = ({ subtitle, title, headingId, titleClassName }: SectionH
             <AnimatedSection delay={0.1}>
                 <h2
                     id={headingId}
-                    className={`text-4xl md:text-5xl font-serif leading-tight ${titleClassName || 'text-primary'}`}
+                    className={`text-4xl md:text-5xl font-serif leading-tight text-primary dark:text-white ${titleClassName || ''}`}
                 >
                     {title}
                 </h2>
@@ -32,4 +32,3 @@ const SectionHeading = ({ subtitle, title, headingId, titleClassName }: SectionH
 };
 
 export default SectionHeading;
-

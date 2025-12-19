@@ -29,7 +29,7 @@ const FAQSection = () => {
     return (
         <section
             id="faq"
-            className="py-32 bg-slate-50"
+            className="py-32 bg-slate-50 dark:bg-slate-900 transition-colors duration-300"
             aria-labelledby="faq-heading"
         >
             <div className="max-w-3xl mx-auto px-6">
@@ -53,7 +53,7 @@ const FAQSection = () => {
 
                         return (
                             <AnimatedSection key={i} delay={i * 0.1}>
-                                <div className="bg-white rounded-3xl border border-slate-100 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                                <div className="bg-white dark:bg-slate-800 rounded-3xl border border-slate-100 dark:border-slate-700 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
                                     <button
                                         id={headerId}
                                         onClick={() => handleToggle(i)}
@@ -62,7 +62,7 @@ const FAQSection = () => {
                                         aria-controls={panelId}
                                         className="w-full px-8 py-6 flex items-center justify-between text-left bg-transparent border-none cursor-pointer"
                                     >
-                                        <span className="font-bold text-primary text-lg">{faq.q}</span>
+                                        <span className="font-bold text-primary dark:text-white text-lg">{faq.q}</span>
                                         <motion.div
                                             animate={{ rotate: isOpen ? 180 : 0 }}
                                             className="text-secondary"
@@ -82,7 +82,7 @@ const FAQSection = () => {
                                                 exit={{ height: 0, opacity: 0 }}
                                                 className="px-8 pb-6"
                                             >
-                                                <p className="text-slate-500 leading-relaxed border-t border-slate-50 pt-6">
+                                                <p className="text-slate-500 dark:text-slate-300 leading-relaxed border-t border-slate-50 dark:border-slate-700 pt-6">
                                                     {faq.a}
                                                 </p>
                                             </motion.div>
@@ -99,4 +99,3 @@ const FAQSection = () => {
 };
 
 export default FAQSection;
-
