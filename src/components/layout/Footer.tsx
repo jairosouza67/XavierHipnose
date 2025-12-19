@@ -43,7 +43,15 @@ const Footer = ({ onNavigate }: FooterProps) => {
                     <ul className="space-y-4 text-white/50 text-sm">
                         <li className="flex items-center gap-3">
                             <Phone size={16} className="text-secondary" />
-                            <span>(77) 98867-2210</span>
+                            <a href="https://wa.me/5577988672210" target="_blank" rel="noopener noreferrer" className="hover:text-secondary transition-colors">
+                                (77) 98867-2210
+                            </a>
+                        </li>
+                        <li className="flex items-center gap-3">
+                            <Instagram size={16} className="text-secondary" />
+                            <a href="https://www.instagram.com/filipexavier.of?igsh=c3QzZ3p6YTUxMjM3&utm_source=qr" target="_blank" rel="noopener noreferrer" className="hover:text-secondary transition-colors">
+                                @filipexavier.of
+                            </a>
                         </li>
                         <li className="flex items-center gap-3">
                             <MapPin size={16} className="text-secondary" />
