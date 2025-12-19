@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Send, X, Bot } from 'lucide-react';
-import { GoogleGenAI } from "@google/genai";
+import { GoogleGenerativeAI } from "@google/genai";
 
 const AIAssistant = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -27,7 +27,7 @@ const AIAssistant = () => {
         setIsLoading(true);
 
         try {
-            const genAI = new GoogleGenAI({ apiKey: (process.env as any).API_KEY || "" });
+            const genAI = new GoogleGenerativeAI((process.env as any).API_KEY || "");
             const model = genAI.getGenerativeModel({
                 model: "gemini-1.5-flash",
                 systemInstruction: "Você é o Xavier AI, assistente virtual profissional da clínica Xavier Hipnose. Responda em português, de forma empática e ética."
