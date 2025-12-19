@@ -87,7 +87,7 @@ const HeroSection = ({ onAction }: HeroSectionProps) => {
                             ))}
                         </div>
                         <div>
-                            <p className="font-bold text-primary">+500 vidas transformadas</p>
+                            <p className="font-bold text-white">+500 vidas transformadas</p>
                             <div
                                 className="flex text-secondary gap-1"
                                 role="img"
