@@ -88,7 +88,7 @@ const HeroSection = ({ onAction }: HeroSectionProps) => {
                     <motion.div
                         animate={{ y: [0, -20, 0] }}
                         transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                        className="absolute -bottom-10 -left-10 bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-2xl z-20 max-w-[240px]"
+                        className="absolute -bottom-10 -left-10 bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-2xl z-20 max-w-[240px] border border-slate-100 dark:border-slate-700"
                         role="complementary"
                         aria-label="Citação inspiradora"
                     >
