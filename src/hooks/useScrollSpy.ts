@@ -8,32 +8,33 @@ export const useScrollSpy = (
 ) => {
     useEffect(() => {
         const handleScroll = () => {
-            // Check if at top of page
-            if (window.scrollY < 100) {
-                onActiveChange('home');
-                return;
-            }
-
             // Find which section is currently most visible
             const sections = sectionIds.map(id => {
                 const element = document.getElementById(id);
                 if (!element) return null;
                 
                 const rect = element.getBoundingClientRect();
-                const viewportCenter = window.innerHeight / 2;
-                const elementCenter = rect.top + (rect.height / 2);
-                const distance = Math.abs(viewportCenter - elementCenter);
+                const offset = offsetPx + 100; // Account for fixed header
                 
-                return { id, distance, rect };
-            }).filter(Boolean) as { id: string; distance: number; rect: DOMRect }[];
+                // Check if section is in view
+                const isInView = rect.top <= offset && rect.bottom > offset;
+                
+                return { id, rect, isInView, top: rect.top };
+            }).filter(Boolean) as { id: string; rect: DOMRect; isInView: boolean; top: number }[];
 
-            // Find closest section to viewport center
-            const closest = sections.reduce((prev, curr) => 
-                curr.distance < prev.distance ? curr : prev
-            );
-
-            if (closest) {
-                onActiveChange(closest.id as ViewState);
+            // Find the first section that's in view, or the one closest to the offset
+            const inView = sections.find(s => s.isInView);
+            
+            if (inView) {
+                onActiveChange(inView.id as ViewState);
+            } else {
+                // If no section is in view, find the closest one
+                const closest = sections.reduce((prev, curr) => 
+                    Math.abs(curr.top) < Math.abs(prev.top) ? curr : prev
+                );
+                if (closest) {
+                    onActiveChange(closest.id as ViewState);
+                }
             }
         };
 
