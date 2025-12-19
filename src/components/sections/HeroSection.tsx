@@ -12,7 +12,7 @@ const HeroSection = ({ onAction }: HeroSectionProps) => {
     return (
         <section
             id="home"
-            className="relative min-h-screen flex items-center overflow-hidden pt-20"
+            className="relative min-h-screen flex items-center overflow-hidden pt-32"
             aria-labelledby="hero-heading"
         >
             {/* Background Decor - decorative, hidden from screen readers */}
