@@ -14,7 +14,6 @@ const ServicesSection = lazy(() => import('./components/sections/ServicesSection
 const AboutSection = lazy(() => import('./components/sections/AboutSection'));
 const FAQSection = lazy(() => import('./components/sections/FAQSection'));
 const ContactSection = lazy(() => import('./components/sections/ContactSection'));
-const AIAssistant = lazy(() => import('./components/features/AIAssistant'));
 
 const NAV_ITEMS: NavItem[] = [
     { id: 'home', label: 'Início', href: '#home' },
@@ -71,11 +70,6 @@ const App = () => {
             </main>
 
             <Footer onNavigate={handleTabChange} />
-
-            {/* Lazy load AI Assistant */}
-            <Suspense fallback={null}>
-                <AIAssistant />
-            </Suspense>
 
             {/* Floating WhatsApp - Fixed at bottom */}
             <a
