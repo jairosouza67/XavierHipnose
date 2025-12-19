@@ -17,7 +17,7 @@ const MobileNavBar = ({ activeTab, onTabChange }: MobileNavBarProps) => {
   ];
 
   return (
-    <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-slate-200 shadow-lg">
+    <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-700 shadow-lg transition-colors duration-300">
       <div className="flex items-center justify-around px-2 py-3">
         {navItems.map((item) => {
           const Icon = item.icon;
@@ -29,8 +29,8 @@ const MobileNavBar = ({ activeTab, onTabChange }: MobileNavBarProps) => {
               onClick={() => onTabChange(item.id)}
               className={`flex flex-col items-center gap-1 px-3 py-1 rounded-xl transition-all duration-300 ${
                 isActive 
-                  ? 'text-primary bg-secondary/10' 
-                  : 'text-slate-500 hover:text-primary'
+                  ? 'text-primary dark:text-white bg-secondary/10 dark:bg-secondary/20' 
+                  : 'text-slate-500 dark:text-slate-400 hover:text-primary dark:hover:text-white'
               }`}
             >
               <Icon 

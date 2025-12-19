@@ -8,7 +8,7 @@ interface FooterProps {
 
 const Footer = ({ onNavigate }: FooterProps) => {
     return (
-        <footer className="bg-primary text-white py-20 px-6">
+        <footer className="bg-primary dark:bg-slate-950 text-white py-20 px-6 transition-colors duration-300">
             <div className="max-w-7xl mx-auto grid md:grid-cols-4 gap-12">
                 <div className="space-y-6">
                     <div className="flex items-center gap-2">
