@@ -73,32 +73,6 @@ const HeroSection = ({ onAction }: HeroSectionProps) => {
                             Conhecer o Método
                         </Button>
                     </AnimatedSection>
-
-                    <AnimatedSection delay={0.4} className="flex items-center gap-6 pt-8">
-                        <div className="flex -space-x-4" role="group" aria-label="Fotos de pacientes satisfeitos">
-                            {[1, 2, 3, 4].map((i) => (
-                                <div key={i} className="w-12 h-12 rounded-full border-4 border-white overflow-hidden bg-slate-200">
-                                    <img
-                                        src={`https://i.pravatar.cc/100?img=${i + 10}`}
-                                        alt={`Paciente satisfeito ${i}`}
-                                        loading="lazy"
-                                    />
-                                </div>
-                            ))}
-                        </div>
-                        <div>
-                            <p className="font-bold text-white">+500 vidas transformadas</p>
-                            <div
-                                className="flex text-secondary gap-1"
-                                role="img"
-                                aria-label="Avaliação 5 de 5 estrelas"
-                            >
-                                {'★★★★★'.split('').map((s, i) => (
-                                    <span key={i} aria-hidden="true">{s}</span>
-                                ))}
-                            </div>
-                        </div>
-                    </AnimatedSection>
                 </div>
 
                 <AnimatedSection direction="right" delay={0.2} className="relative">
