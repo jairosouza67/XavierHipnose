@@ -127,23 +127,30 @@ const HypnotherapySection = () => {
                 </div>
 
                 <AnimatedSection direction="up">
-                    <Card variant="flat" padding="lg" className="bg-slate-50 rounded-[3rem] border border-slate-200">
-                        <div className="grid md:grid-cols-3 gap-12">
-                            {[
-                                { i: 1, t: 'Foco e Relaxamento', d: 'Estado guiado de relaxamento mantendo total controle.' },
-                                { i: 2, t: 'Acesso Direto', d: 'Comunicação com a parte que gera respostas automáticas.' },
-                                { i: 3, t: 'Ressignificação', d: 'Mudança de percepção e eliminação de gatilhos.' },
-                            ].map(step => (
-                                <div key={step.i} className="space-y-4">
-                                    <div className="w-12 h-12 rounded-2xl bg-secondary text-primary flex items-center justify-center font-bold text-xl shadow-lg border-2 border-primary/5">
-                                        {step.i}
+                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        {[
+                            { i: 1, t: 'Foco e Relaxamento', d: 'Estado guiado de relaxamento mantendo total controle.' },
+                            { i: 2, t: 'Acesso Direto', d: 'Comunicação com a parte que gera respostas automáticas.' },
+                            { i: 3, t: 'Dessensibilização', d: 'Eliminação da carga emocional e corporal ligada a um gatilho/memória, sem apagar a memória.' },
+                            { i: 4, t: 'Ressignificação', d: 'Mudança de percepção e eliminação de gatilhos.' },
+                        ].map((step, index) => (
+                            <AnimatedSection key={step.i} delay={index * 0.1}>
+                                <Card className="group h-full flex flex-col">
+                                    <div className="flex justify-center mb-6">
+                                        <div className="w-16 h-16 bg-secondary rounded-2xl flex items-center justify-center text-primary font-bold text-2xl shadow-lg group-hover:scale-110 transition-transform duration-500">
+                                            {step.i}
+                                        </div>
                                     </div>
-                                    <h4 className="font-bold text-primary">{step.t}</h4>
-                                    <p className="text-slate-500 text-sm leading-relaxed">{step.d}</p>
-                                </div>
-                            ))}
-                        </div>
-                    </Card>
+                                    <h4 className="text-lg font-bold text-primary mb-4 text-center group-hover:text-secondary transition-colors duration-500 min-h-[3.5rem] flex items-center justify-center">
+                                        {step.t}
+                                    </h4>
+                                    <p className="text-slate-500 leading-relaxed text-center text-sm">
+                                        {step.d}
+                                    </p>
+                                </Card>
+                            </AnimatedSection>
+                        ))}
+                    </div>
                 </AnimatedSection>
             </div>
         </section>

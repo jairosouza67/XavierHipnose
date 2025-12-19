@@ -8,7 +8,7 @@ import { Service } from '../../types';
 const SERVICES: Service[] = [
     { id: 1, title: 'Ansiedade', description: 'Retome o controle da sua paz mental e liberte-se dos pensamentos que te aprisionam.', icon: 'Brain' },
     { id: 2, title: 'Depressão', description: 'Recupere sua vitalidade e reconecte-se com o sentido e propósito da sua vida.', icon: 'Heart' },
-    { id: 3, title: 'Fobias', description: 'Supere fobias sociais, de avião ou espaços fechados de forma rápida e segura.', icon: 'Zap' },
+    { id: 3, title: 'Fobias', description: 'Supere fobias sociais, medo de dirigir, de avião ou de espaços fechados de forma rápida e segura.', icon: 'Zap' },
     { id: 4, title: 'Traumas', description: 'Ressignifique experiências traumáticas e libere-se do peso emocional do passado.', icon: 'ShieldCheck' },
     { id: 5, title: 'Compulsões', description: 'Quebre padrões compulsivos e recupere o controle sobre suas escolhas e comportamentos.', icon: 'Scale' },
     { id: 6, title: 'Vícios', description: 'Liberte-se do tabagismo e outros comportamentos viciantes permanentemente.', icon: 'Moon' },

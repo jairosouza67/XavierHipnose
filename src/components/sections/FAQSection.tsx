@@ -7,7 +7,7 @@ import { FAQ } from '../../types';
 
 const FAQS: FAQ[] = [
     { q: "A hipnose é segura?", a: "Totalmente. A hipnose é um estado natural da mente humana. Durante a sessão, você está sempre no controle e consciente." },
-    { q: "Quantas sessões são necessárias?", a: "O tratamento é breve. A maioria dos casos é resolvida entre 4 a 6 sessões, dependendo da complexidade." },
+    { q: "Quantas sessões são necessárias?", a: "O tratamento é breve. A maioria dos casos é resolvida entre 1 a 4 sessões, dependendo da complexidade." },
     { q: "Eu vou dormir durante a sessão?", a: "Não. Você estará em um estado de relaxamento profundo, mas acordado e ouvindo tudo o que acontece." },
     { q: "A hipnoterapia serve para mim?", a: "Se você tem vontade de mudar e consegue seguir instruções simples, a hipnoterapia é altamente eficaz para você." },
 ];
