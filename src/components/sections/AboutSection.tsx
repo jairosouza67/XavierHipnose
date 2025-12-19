@@ -9,7 +9,7 @@ const AboutSection = () => {
             <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 xl:gap-16 items-start">
                 <AnimatedSection direction="left">
                     <div className="space-y-7">
-                        <SectionHeading subtitle="O Especialista" title="Filipe Xavier" />
+                        <SectionHeading subtitle="O Especialista" title="Filipe Xavier" titleClassName="text-white" />
                         <div className="space-y-5 text-white/70 text-lg leading-relaxed">
                             <p>
                                 Desde 2017, quando realizei minha primeira formação em Hipnose, fiquei impressionado com o poder extraordinário do cérebro humano. Foi a partir dessa experiência que nasceu minha curiosidade e paixão pelo estudo da mente (cérebro).

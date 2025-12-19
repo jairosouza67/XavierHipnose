@@ -5,9 +5,10 @@ interface SectionHeadingProps {
     subtitle: string;
     title: string;
     headingId?: string;
+    titleClassName?: string;
 }
 
-const SectionHeading = ({ subtitle, title, headingId }: SectionHeadingProps) => {
+const SectionHeading = ({ subtitle, title, headingId, titleClassName }: SectionHeadingProps) => {
     return (
         <div className="space-y-4">
             <AnimatedSection direction="down">
@@ -18,7 +19,7 @@ const SectionHeading = ({ subtitle, title, headingId }: SectionHeadingProps) => 
             <AnimatedSection delay={0.1}>
                 <h2
                     id={headingId}
-                    className="text-4xl md:text-5xl font-serif text-white leading-tight"
+                    className={`text-4xl md:text-5xl font-serif leading-tight ${titleClassName || 'text-primary'}`}
                 >
                     {title}
                 </h2>
