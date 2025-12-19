@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Send, X, Bot } from 'lucide-react';
-import GoogleGenerativeAI from "@google/genai";
+import { GoogleGenerativeAI } from "@google/genai";
 
 const AIAssistant = () => {
     const [isOpen, setIsOpen] = useState(false);
