@@ -12,13 +12,15 @@ const HeroSection = ({ onAction }: HeroSectionProps) => {
     return (
         <section
             id="home"
-            className="relative min-h-screen flex items-center overflow-hidden pt-32 bg-white dark:bg-slate-900 transition-colors duration-300"
+            className="relative min-h-screen flex items-center overflow-hidden pt-32 pb-32 bg-white dark:bg-slate-900 transition-colors duration-300"
             aria-labelledby="hero-heading"
         >
             {/* Background Decor - decorative, hidden from screen readers */}
             <div className="absolute inset-0 z-0" aria-hidden="true">
                 <div className="absolute top-20 right-[-10%] w-[500px] h-[500px] bg-secondary/10 dark:bg-secondary/5 rounded-full blur-[120px]" />
                 <div className="absolute bottom-20 left-[-10%] w-[400px] h-[400px] bg-primary/20 dark:bg-primary/10 rounded-full blur-[100px]" />
+                {/* Additional blur circle for smooth transition */}
+                <div className="absolute bottom-[-15%] right-[20%] w-[350px] h-[350px] bg-secondary/8 dark:bg-secondary/4 rounded-full blur-[100px]" />
             </div>
 
             <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center relative z-10">
@@ -76,7 +78,7 @@ const HeroSection = ({ onAction }: HeroSectionProps) => {
                 </div>
 
                 <AnimatedSection direction="right" delay={0.2} className="relative">
-                    <div className="relative z-10 rounded-[3rem] overflow-hidden shadow-2xl border-8 border-white dark:border-slate-800">
+                    <div className="relative z-10 rounded-[3rem] overflow-hidden shadow-2xl border-8 border-white">
                         <img
                             src="/profile.jpg"
                             alt="Filipe Xavier - Hipnoterapeuta Clínico"
@@ -88,11 +90,11 @@ const HeroSection = ({ onAction }: HeroSectionProps) => {
                     <motion.div
                         animate={{ y: [0, -20, 0] }}
                         transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                        className="absolute -bottom-10 -left-10 bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-2xl z-20 max-w-[240px]"
+                        className="absolute -bottom-10 -left-10 bg-white p-8 rounded-3xl shadow-2xl z-20 max-w-[240px]"
                         role="complementary"
                         aria-label="Citação inspiradora"
                     >
-                        <p className="text-primary dark:text-white font-bold italic text-lg leading-tight">
+                        <p className="text-primary font-bold italic text-lg leading-tight">
                             "A jornada para a mudança começa no seu subconsciente."
                         </p>
                     </motion.div>
@@ -103,3 +105,4 @@ const HeroSection = ({ onAction }: HeroSectionProps) => {
 };
 
 export default HeroSection;
+
