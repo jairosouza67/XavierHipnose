@@ -67,8 +67,8 @@ const Footer = ({ onNavigate }: FooterProps) => {
                 </div>
             </div>
 
-            <div className="max-w-7xl mx-auto pt-20 mt-20 border-t border-white/5 text-center text-white/20 text-xs">
-                <p>&copy; {new Date().getFullYear()} Xavier Hipnose. Todos os direitos reservados.</p>
+            <div className="max-w-7xl mx-auto pt-20 mt-20 border-t border-white/5 text-center text-white text-sm">
+                <p>&copy; 2025 Filipe Xavier - Hipnose Clínica. Todos os direitos reservados.</p>
             </div>
         </footer>
     );
