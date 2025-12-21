@@ -11,6 +11,11 @@ export interface Service {
     description: string;
     icon: string; // Lucide icon name
     color?: string;
+    detailedInfo?: {
+        howItHelps: string;
+        benefits: string[];
+        duration?: string;
+    };
 }
 
 export interface Testimonial {
