@@ -11,6 +11,308 @@ interface TreatmentModalProps {
     sections: TreatmentSection[];
 }
 
+const WHATSAPP_URL = 'https://wa.me/5577988672210';
+
+const stripCtaMarkers = (content: string) => {
+    const hasMarker = content.includes('🔘') || content.includes('👉');
+
+    const cleaned = content
+        .replace(/\n?\s*🔘\s*Botão\s*:\s*\n?/g, '\n')
+        .replace(/\n?\s*👉\s*Agendar\s*(Avaliação|Sessão)\s*\n?/g, '\n')
+        .replace(/\n{3,}/g, '\n\n')
+        .trim();
+
+    return { cleaned, hadCta: hasMarker && cleaned !== content };
+};
+
+const normalizePdfText = (raw: string) => {
+    // Keep tone, fix layout: remove mid-sentence line breaks from PDF extraction,
+    // preserve paragraphs and bullet lists.
+    const text = raw.replace(/\r\n/g, '\n');
+
+    const isNumbered = (line: string) => /^\d+\./.test(line);
+    const isBullet = (line: string) => /^-\s+/.test(line);
+    const isLooseBullet = (line: string) => /^[o•]\s+/.test(line);
+
+    const out: string[] = [];
+    let paragraph: string[] = [];
+    let lastWasListItem = false;
+
+    const flushParagraph = () => {
+        if (!paragraph.length) return;
+        const joined = paragraph.join(' ');
+        out.push(
+            joined
+                // Fix word breaks from PDFs: "neuro-\nbiológica" -> "neurobiológica"
+                .replace(/([A-Za-zÀ-ÖØ-öø-ÿ])-\s+([A-Za-zÀ-ÖØ-öø-ÿ])/g, '$1$2')
+                .replace(/\s+/g, ' ')
+                .trim(),
+        );
+        paragraph = [];
+    };
+
+    for (const rawLine of text.split('\n')) {
+        let line = rawLine.trim();
+
+        if (!line) {
+            flushParagraph();
+            // avoid stacking too many blank lines
+            if (out.length && out[out.length - 1] !== '') out.push('');
+            lastWasListItem = false;
+            continue;
+        }
+
+        // Fix a common PDF artifact where a bullet becomes "o "
+        if (isLooseBullet(line)) {
+            line = line.replace(/^[o•]\s+/, '- ');
+        }
+
+        // Fix a common artifact: "- 4. Título" should be "4. Título"
+        line = line.replace(/^[-–—]\s*(\d+\.)\s+/, '$1 ');
+
+        const isNumberedHeading = () => {
+            if (!isNumbered(line)) return false;
+            // Treat as heading if the next content is a bullet list (common in PDFs)
+            return false;
+        };
+
+        if (isBullet(line) || isNumbered(line)) {
+            flushParagraph();
+            out.push(line);
+            lastWasListItem = true;
+            continue;
+        }
+
+        // Some lines are effectively headings inside the same section.
+        // Keep them as their own line for readability.
+        if (/^(Quais\s+são\s+os\s+sintomas\s+mais\s+comuns\?|Tipos\s+comuns\b|⚠|⚠️|🔘|👉)/.test(line)) {
+            flushParagraph();
+            out.push(line);
+            lastWasListItem = false;
+            continue;
+        }
+
+        // If a bullet/numbered item wrapped to the next line in the PDF, attach it.
+        if (lastWasListItem && out.length) {
+            out[out.length - 1] = `${out[out.length - 1]} ${line}`.replace(/\s+/g, ' ').trim();
+            continue;
+        }
+
+        paragraph.push(line);
+        lastWasListItem = false;
+    }
+
+    flushParagraph();
+
+    let normalized = out
+        .join('\n')
+        // Normalize excessive blank lines
+        .replace(/\n{3,}/g, '\n\n')
+        // Keep lists tight (avoid empty lines inside lists)
+        .replace(/\n\n(-\s+)/g, '\n$1')
+        .replace(/\n\n(\d+\.)\s+/g, '\n$1 ')
+        // Fix spacing before punctuation
+        .replace(/\s+([,.;:!?])/g, '$1')
+        .replace(/\(\s+/g, '(')
+        .replace(/\s+\)/g, ')')
+        // Fix some common spacing typos from extraction
+        .replace(/\s+,/g, ',')
+        .replace(/\s+\./g, '.')
+        // Keep double dots when author uses it (".."), but remove accidental 3+ dots
+        .replace(/\.{4,}/g, '...')
+        .trim();
+
+    // Targeted tiny fixes (keep informal tone)
+    normalized = normalized
+        .replace(/ansiosona\s+,/gi, 'ansiosona,')
+        .replace(/ansiosão\s+,/gi, 'ansiosão,');
+
+    return normalized;
+};
+
+const mergeBrokenSectionTitles = (sections: Array<TreatmentSection & { _hadCta?: boolean }>) => {
+    const merged: Array<TreatmentSection & { _hadCta?: boolean }> = [];
+
+    for (const section of sections) {
+        const title = section.title.trim();
+        const content = section.content ?? '';
+
+        const [firstLineRaw, ...restLines] = content.split('\n');
+        const firstLine = (firstLineRaw ?? '').trim();
+        const rest = restLines.join('\n').trimStart();
+
+        const isShortContinuation = firstLine.length > 0 && firstLine.length <= 22;
+        const startsLowercase = /^[a-zà-ÿ]/i.test(firstLine) && /^[a-zà-ÿ]/.test(firstLine);
+        const looksLikeSingleWordOrQuestion = /^[a-zà-ÿ]+[?.!]?$/.test(firstLine);
+
+        // Common PDF split: title ends with "... sistema" and content starts with "nervoso.";
+        // or title ends with "... medos e" and content starts with "fobias?".
+        if (isShortContinuation && (startsLowercase || looksLikeSingleWordOrQuestion)) {
+            merged.push({
+                ...section,
+                title: `${title} ${firstLine}`.replace(/\s+/g, ' ').trim(),
+                content: rest,
+            });
+            continue;
+        }
+
+        merged.push({ ...section, title, content });
+    }
+
+    return merged;
+};
+
+const splitBoldSegments = (text: string): React.ReactNode[] => {
+    // Very small inline formatter: **bold**
+    const parts = text.split(/(\*\*[^*]+\*\*)/g).filter(Boolean);
+    return parts.map((part, idx) => {
+        const isBold = part.startsWith('**') && part.endsWith('**') && part.length > 4;
+        if (!isBold) return <React.Fragment key={idx}>{part}</React.Fragment>;
+        return <strong key={idx}>{part.slice(2, -2)}</strong>;
+    });
+};
+
+const renderFormattedContent = (content: string) => {
+    const lines = content.split('\n');
+
+    const blocks: React.ReactNode[] = [];
+    let paragraph: string[] = [];
+    let listType: 'ul' | 'ol' | null = null;
+    let listItems: string[] = [];
+
+    const flushParagraph = () => {
+        if (!paragraph.length) return;
+        const text = paragraph.join(' ').replace(/\s+/g, ' ').trim();
+        if (text) {
+            blocks.push(
+                <p key={`p-${blocks.length}`} className="leading-relaxed">
+                    {splitBoldSegments(text)}
+                </p>,
+            );
+        }
+        paragraph = [];
+    };
+
+    const flushList = () => {
+        if (!listType || !listItems.length) {
+            listType = null;
+            listItems = [];
+            return;
+        }
+
+        const Tag = listType === 'ul' ? 'ul' : 'ol';
+        blocks.push(
+            <Tag
+                key={`list-${blocks.length}`}
+                className={
+                    listType === 'ul'
+                        ? 'list-disc pl-6 space-y-1'
+                        : 'list-decimal pl-6 space-y-1'
+                }
+            >
+                {listItems.map((item, idx) => (
+                    <li key={idx}>{splitBoldSegments(item)}</li>
+                ))}
+            </Tag>,
+        );
+
+        listType = null;
+        listItems = [];
+    };
+
+    const isHeadingLine = (line: string) => {
+        if (!line) return false;
+        if (line.startsWith('⚠') || line.startsWith('⚠️')) return true;
+        if (/^(Quais\s+são\s+os\s+sintomas\s+mais\s+comuns\?|Tipos\s+comuns\b)/i.test(line)) return true;
+        if (line === 'À noite' || line === 'Durante o dia') return true;
+        if (/^Sintomas\b/i.test(line)) return true;
+        if (line.endsWith(':') && line.length <= 80) return true;
+        return false;
+    };
+
+    const nextNonEmptyLine = (startIdx: number) => {
+        for (let i = startIdx + 1; i < lines.length; i++) {
+            const next = lines[i].trim();
+            if (next) return next;
+        }
+        return '';
+    };
+
+    for (let i = 0; i < lines.length; i++) {
+        const raw = lines[i] ?? '';
+        const line = raw.trim();
+
+        if (!line) {
+            flushParagraph();
+            flushList();
+            continue;
+        }
+
+        const bulletMatch = line.match(/^[-–—]\s+(.*)$/);
+        if (bulletMatch) {
+            flushParagraph();
+            if (listType && listType !== 'ul') flushList();
+            listType = 'ul';
+            listItems.push(bulletMatch[1].trim());
+            continue;
+        }
+
+        const numberedMatch = line.match(/^(\d+)\.\s+(.*)$/);
+        if (numberedMatch) {
+            // Treat as heading when it introduces a category followed by bullets.
+            const next = nextNonEmptyLine(i);
+            const looksLikeCategory = !!next && /^[-–—]\s+/.test(next);
+            if (looksLikeCategory) {
+                flushParagraph();
+                flushList();
+                blocks.push(
+                    <p
+                        key={`h-${blocks.length}`}
+                        className="font-semibold text-slate-700 dark:text-slate-200 leading-relaxed"
+                    >
+                        {splitBoldSegments(line)}
+                    </p>,
+                );
+                continue;
+            }
+
+            flushParagraph();
+            if (listType && listType !== 'ol') flushList();
+            listType = 'ol';
+            listItems.push(numberedMatch[2].trim());
+            continue;
+        }
+
+        // Continuation of the last list item (common in PDFs)
+        if (listType && listItems.length && !isHeadingLine(line)) {
+            const prev = listItems[listItems.length - 1] ?? '';
+            listItems[listItems.length - 1] = `${prev} ${line}`.replace(/\s+/g, ' ').trim();
+            continue;
+        }
+
+        if (isHeadingLine(line)) {
+            flushParagraph();
+            flushList();
+            blocks.push(
+                <p
+                    key={`h-${blocks.length}`}
+                    className="font-semibold text-slate-700 dark:text-slate-200 leading-relaxed"
+                >
+                    {splitBoldSegments(line)}
+                </p>,
+            );
+            continue;
+        }
+
+        paragraph.push(line);
+    }
+
+    flushParagraph();
+    flushList();
+
+    return <div className="space-y-3">{blocks}</div>;
+};
+
 const TreatmentModal: React.FC<TreatmentModalProps> = ({
     isOpen,
     onClose,
@@ -41,6 +343,20 @@ const TreatmentModal: React.FC<TreatmentModalProps> = ({
     }, [isOpen, onClose]);
 
     if (!isOpen) return null;
+
+    const processedSections = mergeBrokenSectionTitles(
+        sections.map((section) => {
+        const { cleaned, hadCta } = stripCtaMarkers(section.content);
+        return {
+            ...section,
+            title: section.title.trim(),
+            content: normalizePdfText(cleaned),
+            _hadCta: hadCta,
+        };
+        }),
+    );
+
+    const showCta = processedSections.some((s) => s._hadCta);
 
     return (
         <div
@@ -86,17 +402,33 @@ const TreatmentModal: React.FC<TreatmentModalProps> = ({
 
                     {/* Sections (original PDF content) */}
                     <div className="space-y-10">
-                        {sections.map((section, index) => (
+                        {processedSections.map((section, index) => (
                             <div key={`${section.title}-${index}`}>
                                 <h3 className="text-2xl font-serif font-bold text-primary dark:text-white mb-4">
                                     {section.title}
                                 </h3>
-                                <div className="text-slate-600 dark:text-slate-300 leading-relaxed whitespace-pre-line">
-                                    {section.content}
-                                </div>
+                                {section.content && (
+                                    <div className="text-slate-600 dark:text-slate-300">
+                                        {renderFormattedContent(section.content)}
+                                    </div>
+                                )}
                             </div>
                         ))}
                     </div>
+
+                    {showCta && (
+                        <div className="mt-12">
+                            <a
+                                href={WHATSAPP_URL}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="w-full inline-flex items-center justify-center rounded-full px-8 py-4 font-bold text-white bg-[#25D366] hover:opacity-90 transition-opacity"
+                                aria-label="Agende uma Avaliação via WhatsApp"
+                            >
+                                Agende uma Avaliação
+                            </a>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

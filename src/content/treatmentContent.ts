@@ -458,8 +458,7 @@ Cada caso deve ser avaliado individualmente.
 
 O comportamento não é o inimigo.
 Ele é apenas um sinal de que algo dentro de você precisa ser ouvido e reorganizado.
-Agende uma avaliação e descubra como é possível quebrar padrões automáticos e
-recuperar o controle de forma saudável e consciente.
+Agende uma avaliação e descubra como é possível quebrar padrões automáticos e recuperar o controle de forma saudável e consciente.
 🔘 Botão:
 👉 Agendar Avaliação`,
       },
@@ -993,9 +992,9 @@ Cada caso deve ser avaliado individualmente.
 Você não precisa organizar sua vida em torno do medo.`,
       },
       {
-        title: `O que hoje parece incontrolável pode ser apenas um padrão aprendido pelo seu sistema`,
-        content: `nervoso.
-Agende uma avaliação e descubra como é possível reeducar o cérebro para responder
+        title: `Encerramento`,
+        content: `O que hoje parece incontrolável pode ser apenas um padrão aprendido pelo seu sistema nervoso.
+      Agende uma avaliação e descubra como é possível reeducar o cérebro para responder
 com mais segurança e liberdade.
 🔘 Botão:
 👉 Agendar Avaliação`,
