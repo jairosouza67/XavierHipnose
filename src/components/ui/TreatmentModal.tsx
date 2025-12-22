@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { X } from 'lucide-react';
+import type { TreatmentSection } from '../../content/treatmentContent';
 
 interface TreatmentModalProps {
     isOpen: boolean;
@@ -7,11 +8,7 @@ interface TreatmentModalProps {
     title: string;
     icon: React.ReactNode;
     description: string;
-    detailedInfo: {
-        howItHelps: string;
-        benefits: string[];
-        duration?: string;
-    };
+    sections: TreatmentSection[];
 }
 
 const TreatmentModal: React.FC<TreatmentModalProps> = ({
@@ -20,7 +17,7 @@ const TreatmentModal: React.FC<TreatmentModalProps> = ({
     title,
     icon,
     description,
-    detailedInfo,
+    sections,
 }) => {
     useEffect(() => {
         if (isOpen) {
@@ -87,42 +84,19 @@ const TreatmentModal: React.FC<TreatmentModalProps> = ({
                     {/* Divider */}
                     <div className="h-px bg-slate-200 dark:bg-slate-700 mb-8" />
 
-                    {/* How It Helps */}
-                    <div className="mb-8">
-                        <h3 className="text-2xl font-serif font-bold text-primary dark:text-white mb-4">
-                            Como a hipnoterapia ajuda
-                        </h3>
-                        <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-                            {detailedInfo.howItHelps}
-                        </p>
+                    {/* Sections (original PDF content) */}
+                    <div className="space-y-10">
+                        {sections.map((section, index) => (
+                            <div key={`${section.title}-${index}`}>
+                                <h3 className="text-2xl font-serif font-bold text-primary dark:text-white mb-4">
+                                    {section.title}
+                                </h3>
+                                <div className="text-slate-600 dark:text-slate-300 leading-relaxed whitespace-pre-line">
+                                    {section.content}
+                                </div>
+                            </div>
+                        ))}
                     </div>
-
-                    {/* Benefits */}
-                    <div className="mb-8">
-                        <h3 className="text-2xl font-serif font-bold text-primary dark:text-white mb-4">
-                            Benefícios esperados
-                        </h3>
-                        <ul className="space-y-3">
-                            {detailedInfo.benefits.map((benefit, index) => (
-                                <li key={index} className="flex gap-3 text-slate-600 dark:text-slate-300">
-                                    <span className="text-secondary font-bold mt-1">✓</span>
-                                    <span className="leading-relaxed">{benefit}</span>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-
-                    {/* Duration (if provided) */}
-                    {detailedInfo.duration && (
-                        <div className="bg-amber-50 dark:bg-amber-900/30 border-l-4 border-secondary p-6 rounded-2xl">
-                            <p className="text-primary dark:text-white font-bold mb-2">
-                                Duração do tratamento
-                            </p>
-                            <p className="text-slate-600 dark:text-slate-300">
-                                {detailedInfo.duration}
-                            </p>
-                        </div>
-                    )}
                 </div>
             </div>
         </div>
