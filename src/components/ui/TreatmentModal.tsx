@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useId, useRef } from 'react';
 import { X } from 'lucide-react';
 import type { TreatmentSection } from '../../content/treatmentContent';
 
@@ -321,6 +321,12 @@ const TreatmentModal: React.FC<TreatmentModalProps> = ({
     description,
     sections,
 }) => {
+    const titleId = useId();
+    const descriptionId = useId();
+    const modalRef = useRef<HTMLDivElement | null>(null);
+    const closeButtonRef = useRef<HTMLButtonElement | null>(null);
+    const previouslyFocusedElementRef = useRef<HTMLElement | null>(null);
+
     useEffect(() => {
         if (isOpen) {
             document.body.style.overflow = 'hidden';
@@ -329,6 +335,21 @@ const TreatmentModal: React.FC<TreatmentModalProps> = ({
         }
         return () => {
             document.body.style.overflow = 'unset';
+        };
+    }, [isOpen]);
+
+    useEffect(() => {
+        if (!isOpen) return;
+
+        previouslyFocusedElementRef.current = document.activeElement as HTMLElement | null;
+        // Focus the close button for keyboard users.
+        const t = window.setTimeout(() => {
+            closeButtonRef.current?.focus();
+        }, 0);
+
+        return () => {
+            window.clearTimeout(t);
+            previouslyFocusedElementRef.current?.focus?.();
         };
     }, [isOpen]);
 
@@ -358,6 +379,38 @@ const TreatmentModal: React.FC<TreatmentModalProps> = ({
 
     const showCta = processedSections.some((s) => s._hadCta);
 
+    const handleModalKeyDown = (e: React.KeyboardEvent) => {
+        if (e.key !== 'Tab') return;
+
+        const root = modalRef.current;
+        if (!root) return;
+
+        const focusable = Array.from(
+            root.querySelectorAll<HTMLElement>(
+                'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])',
+            ),
+        ).filter((el) => !el.hasAttribute('disabled') && el.tabIndex !== -1);
+
+        if (!focusable.length) return;
+
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        const active = document.activeElement as HTMLElement | null;
+
+        if (e.shiftKey) {
+            if (!active || active === first || !root.contains(active)) {
+                e.preventDefault();
+                last.focus();
+            }
+            return;
+        }
+
+        if (active === last) {
+            e.preventDefault();
+            first.focus();
+        }
+    };
+
     return (
         <div
             className="fixed inset-0 z-50 flex items-center justify-center p-4 animate-fadeIn"
@@ -368,67 +421,112 @@ const TreatmentModal: React.FC<TreatmentModalProps> = ({
 
             {/* Modal */}
             <div
-                className="relative bg-white dark:bg-slate-800 rounded-3xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto animate-scaleIn"
+                ref={modalRef}
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby={titleId}
+                aria-describedby={descriptionId}
+                className="relative bg-white dark:bg-slate-800 rounded-3xl shadow-2xl max-w-5xl w-full max-h-[90vh] overflow-y-auto overscroll-contain flex flex-col animate-scaleIn"
                 onClick={(e) => e.stopPropagation()}
+                onKeyDown={handleModalKeyDown}
             >
-                {/* Close Button */}
-                <button
-                    onClick={onClose}
-                    className="absolute top-6 right-6 w-8 h-8 flex items-center justify-center rounded-full text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700 transition-all"
-                    aria-label="Fechar modal"
-                >
-                    <X size={20} />
-                </button>
+                {/* Sticky Header */}
+                <div className="sticky top-0 z-20 bg-white/90 dark:bg-slate-800/90 backdrop-blur-md border-b border-slate-100 dark:border-slate-700">
+                    <div className="px-6 py-5 md:px-10 md:py-6 flex items-start gap-4">
+                        <div className="shrink-0 w-12 h-12 bg-secondary/10 rounded-2xl flex items-center justify-center text-secondary">
+                            {icon}
+                        </div>
 
-                {/* Content */}
-                <div className="p-8 md:p-12">
-                    {/* Icon */}
-                    <div className="w-20 h-20 bg-secondary/10 rounded-2xl flex items-center justify-center mb-6 text-secondary">
-                        {icon}
+                        <div className="min-w-0 flex-1">
+                            <h2
+                                id={titleId}
+                                className="text-2xl md:text-3xl font-serif font-bold text-primary dark:text-white leading-tight"
+                            >
+                                {title}
+                            </h2>
+                            <p id={descriptionId} className="mt-2 text-sm md:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
+                                {description}
+                            </p>
+                        </div>
+
+                        <button
+                            ref={closeButtonRef}
+                            onClick={onClose}
+                            className="mt-1 w-9 h-9 flex items-center justify-center rounded-full text-slate-500 hover:text-slate-700 dark:text-slate-300 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-700 transition-all focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-slate-800"
+                            aria-label="Fechar modal"
+                        >
+                            <X size={20} />
+                        </button>
                     </div>
+                </div>
 
-                    {/* Title */}
-                    <h2 className="text-4xl font-serif font-bold text-primary dark:text-white mb-4">
-                        {title}
-                    </h2>
+                {/* Body */}
+                <div className="min-h-0 flex-1">
+                    <div className="p-6 md:p-10">
+                        <div className="grid gap-10 md:grid-cols-[320px_1fr]">
+                            {/* Left rail (no TOC) */}
+                            <aside className="space-y-6 md:sticky md:top-6 self-start">
+                                <div className="rounded-2xl border border-slate-200/70 dark:border-slate-700/70 bg-slate-50/60 dark:bg-slate-900/30 p-6">
+                                    <h3 className="text-lg font-bold text-primary dark:text-white mb-3">Visão geral</h3>
+                                    <p className="text-sm md:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
+                                        {description}
+                                    </p>
+                                </div>
 
-                    {/* Short Description */}
-                    <p className="text-lg text-slate-600 dark:text-slate-300 leading-relaxed mb-8">
-                        {description}
-                    </p>
+                                {showCta && (
+                                    <div className="rounded-2xl border border-slate-200/70 dark:border-slate-700/70 bg-white dark:bg-slate-800 p-6 shadow-sm">
+                                        <a
+                                            href={WHATSAPP_URL}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="w-full inline-flex items-center justify-center font-bold rounded-full transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed bg-secondary text-primary hover:bg-secondary/90 focus:ring-secondary px-6 py-3 text-base"
+                                            aria-label="Agendar avaliação via WhatsApp"
+                                        >
+                                            Agendar avaliação
+                                        </a>
+                                        <p className="mt-3 text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                                            Você será direcionado para o WhatsApp para finalizar o agendamento.
+                                        </p>
+                                    </div>
+                                )}
+                            </aside>
 
-                    {/* Divider */}
-                    <div className="h-px bg-slate-200 dark:bg-slate-700 mb-8" />
+                            {/* Content */}
+                            <div className="min-w-0">
+                                <div className="space-y-8">
+                                    {processedSections.map((section, index) => (
+                                        <section
+                                            key={`${section.title}-${index}`}
+                                            className="rounded-2xl border border-slate-200/70 dark:border-slate-700/70 bg-slate-50/60 dark:bg-slate-900/30 p-6 md:p-8"
+                                        >
+                                            <h3 className="text-xl md:text-2xl font-serif font-bold text-primary dark:text-white mb-4">
+                                                {section.title}
+                                            </h3>
+                                            {section.content && (
+                                                <div className="text-slate-700 dark:text-slate-200">
+                                                    {renderFormattedContent(section.content)}
+                                                </div>
+                                            )}
+                                        </section>
+                                    ))}
+                                </div>
 
-                    {/* Sections (original PDF content) */}
-                    <div className="space-y-10">
-                        {processedSections.map((section, index) => (
-                            <div key={`${section.title}-${index}`}>
-                                <h3 className="text-2xl font-serif font-bold text-primary dark:text-white mb-4">
-                                    {section.title}
-                                </h3>
-                                {section.content && (
-                                    <div className="text-slate-600 dark:text-slate-300">
-                                        {renderFormattedContent(section.content)}
+                                {showCta && (
+                                    <div className="mt-10 md:hidden">
+                                        <a
+                                            href={WHATSAPP_URL}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="w-full inline-flex items-center justify-center font-bold rounded-full transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed bg-secondary text-primary hover:bg-secondary/90 focus:ring-secondary px-6 py-3 text-base"
+                                            aria-label="Agendar avaliação via WhatsApp"
+                                        >
+                                            Agendar avaliação
+                                        </a>
                                     </div>
                                 )}
                             </div>
-                        ))}
-                    </div>
-
-                    {showCta && (
-                        <div className="mt-12">
-                            <a
-                                href={WHATSAPP_URL}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="w-full inline-flex items-center justify-center rounded-full px-8 py-4 font-bold text-white bg-[#25D366] hover:opacity-90 transition-opacity"
-                                aria-label="Agende uma Avaliação via WhatsApp"
-                            >
-                                Agende uma Avaliação
-                            </a>
                         </div>
-                    )}
+                    </div>
                 </div>
             </div>
         </div>
