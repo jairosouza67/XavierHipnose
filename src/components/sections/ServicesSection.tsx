@@ -81,10 +81,17 @@ const ServicesSection = () => {
     return (
         <section
             id="servicos"
-            className="py-32 bg-slate-50 dark:bg-slate-900 transition-colors duration-300"
+            className="relative overflow-hidden py-32 bg-slate-50 dark:bg-slate-900 transition-colors duration-300"
             aria-labelledby="services-heading"
         >
-            <div className="max-w-7xl mx-auto px-6">
+            {/* Background overlays */}
+            <div className="absolute inset-0 z-0" aria-hidden="true">
+                <div className="overlay-layer overlay-rings" />
+                <div className="overlay-layer overlay-vignette" />
+                <div className="overlay-layer overlay-noise" />
+            </div>
+
+            <div className="relative z-10 max-w-7xl mx-auto px-6">
                 <div className="text-center mb-20">
                     <SectionHeading
                         subtitle="Especialidades"

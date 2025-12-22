@@ -90,3 +90,57 @@
 .animate-scaleIn {
   animation: scaleIn 0.3s ease-out;
 }
+
+/* Authorial Overlays (rings + noise + vignette) */
+.overlay-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.overlay-vignette {
+  background: radial-gradient(
+    120% 100% at 50% 40%,
+    transparent 0%,
+    color-mix(in oklab, var(--color-primary) 10%, transparent) 55%,
+    color-mix(in oklab, var(--color-primary) 16%, transparent) 100%
+  );
+  opacity: 0.7;
+}
+
+.overlay-rings {
+  background-image:
+    repeating-radial-gradient(
+      circle at 18% 18%,
+      color-mix(in oklab, var(--color-secondary) 18%, transparent) 0 1px,
+      transparent 1px 26px
+    ),
+    repeating-radial-gradient(
+      circle at 82% 78%,
+      color-mix(in oklab, var(--color-accent-blue) 14%, transparent) 0 1px,
+      transparent 1px 30px
+    );
+  opacity: 0.35;
+  filter: blur(0.1px);
+}
+
+.overlay-noise {
+  /* SVG noise via feTurbulence (tiny + subtle) */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  opacity: 0.08;
+  mix-blend-mode: soft-light;
+}
+
+.dark .overlay-vignette {
+  opacity: 0.55;
+}
+
+.dark .overlay-rings {
+  opacity: 0.22;
+}
+
+.dark .overlay-noise {
+  opacity: 0.10;
+  mix-blend-mode: overlay;
+}

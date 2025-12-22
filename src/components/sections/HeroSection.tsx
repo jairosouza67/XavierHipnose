@@ -17,6 +17,11 @@ const HeroSection = ({ onAction }: HeroSectionProps) => {
         >
             {/* Background Decor - decorative, hidden from screen readers */}
             <div className="absolute inset-0 z-0" aria-hidden="true">
+                {/* Authorial overlays */}
+                <div className="overlay-layer overlay-rings" />
+                <div className="overlay-layer overlay-vignette" />
+                <div className="overlay-layer overlay-noise" />
+
                 <div className="absolute top-20 right-[-10%] w-[500px] h-[500px] bg-secondary/10 dark:bg-secondary/5 rounded-full blur-[120px]" />
                 <div className="absolute bottom-20 left-[-10%] w-[400px] h-[400px] bg-primary/20 dark:bg-primary/10 rounded-full blur-[100px]" />
                 {/* Additional blur circle for smooth transition */}
