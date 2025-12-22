@@ -1,5 +1,5 @@
 import React from 'react';
-import { Moon, Sun } from 'lucide-react';
+import { Layers, Moon, Sun } from 'lucide-react';
 import TabNavigation from './TabNavigation';
 import { NavItem, ViewState } from '../../types';
 import { useTheme } from '../../contexts/ThemeContext';
@@ -12,7 +12,7 @@ interface HeaderProps {
 }
 
 const Header = ({ navItems, activeTab, onTabChange }: HeaderProps) => {
-  const { theme, toggleTheme } = useTheme();
+  const { theme, toggleTheme, toggleHybrid, isHybrid } = useTheme();
   
   return (
     <header className="fixed top-0 left-0 right-0 z-50 px-6 py-4">
@@ -26,13 +26,27 @@ const Header = ({ navItems, activeTab, onTabChange }: HeaderProps) => {
           <TabNavigation items={navItems} activeTab={activeTab} onTabChange={onTabChange} />
         </div>
 
-        <div className="hidden lg:flex items-center gap-4">
+        <div className="hidden lg:flex items-center gap-3">
           <button
             onClick={toggleTheme}
             className="p-2 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition-all"
             aria-label="Alternar tema"
           >
-            {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
+            {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
+          </button>
+
+          <button
+            onClick={toggleHybrid}
+            className={`p-2 rounded-full transition-all ${
+              isHybrid
+                ? 'bg-secondary/20 text-secondary hover:bg-secondary/25'
+                : 'bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
+            }`}
+            aria-label="Alternar modo híbrido"
+            aria-pressed={isHybrid}
+            title="Modo híbrido"
+          >
+            <Layers size={20} />
           </button>
           <Button variant="primary" size="sm" onClick={() => onTabChange('contato')}>
             Agendar Agora
