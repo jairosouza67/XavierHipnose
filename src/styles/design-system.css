@@ -1,97 +1,106 @@
 :root {
-  /* Primary Colors */
-  --color-primary: #0a0f1c;
-  --color-primary-light: #1e293b;
-  --color-secondary: #f59e0b;
-  --color-secondary-light: #fbbf24;
+  /* Primary Colors - Deep navy for authority & trust */
+  --color-primary: #0c1220;
+  --color-primary-light: #1a2540;
+  --color-secondary: #c9953c;
+  --color-secondary-light: #dbb06a;
   
-  /* Accent Colors */
-  --color-accent-blue: #3b82f6;
-  --color-accent-purple: #8b5cf6;
-  --color-accent-teal: #14b8a6;
+  /* Warm neutral tones */
+  --color-cream: #f7f3ed;
+  --color-warm-white: #faf8f5;
   
   /* Neutral Colors */
-  --color-background: #fefefe;
+  --color-background: #faf8f5;
   --color-surface: #ffffff;
-  --color-surface-elevated: #f8fafc;
-  --color-border: #e2e8f0;
-  --color-border-light: #f1f5f9;
+  --color-surface-elevated: #f7f3ed;
+  --color-border: #e8e2d9;
+  --color-border-light: #f0ebe4;
   
   /* Text Colors */
-  --color-text-primary: #0f172a;
-  --color-text-secondary: #475569;
-  --color-text-muted: #64748b;
-  --color-text-inverse: #ffffff;
+  --color-text-primary: #0c1220;
+  --color-text-secondary: #4a5568;
+  --color-text-muted: #718096;
+  --color-text-inverse: #faf8f5;
 
   /* Font Families */
   --font-primary: 'Inter', system-ui, sans-serif;
   --font-heading: 'Playfair Display', serif;
 
-  /* Shadows */
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
-  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+  /* Shadows - warmer tones */
+  --shadow-sm: 0 1px 3px 0 rgb(12 18 32 / 0.04), 0 1px 2px -1px rgb(12 18 32 / 0.03);
+  --shadow-md: 0 4px 6px -1px rgb(12 18 32 / 0.06), 0 2px 4px -2px rgb(12 18 32 / 0.04);
+  --shadow-lg: 0 10px 24px -4px rgb(12 18 32 / 0.08), 0 4px 8px -2px rgb(12 18 32 / 0.04);
+  --shadow-xl: 0 20px 40px -8px rgb(12 18 32 / 0.12), 0 8px 16px -4px rgb(12 18 32 / 0.06);
+  --shadow-gold: 0 4px 20px -4px rgb(201 149 60 / 0.25);
 
   /* Radius */
   --radius-xl: 1rem;
   --radius-2xl: 1.5rem;
+  --radius-3xl: 2rem;
   --radius-full: 9999px;
 }
 
 @layer base {
   body {
-    @apply bg-background text-slate-900 font-sans antialiased;
+    @apply bg-[var(--color-background)] text-[var(--color-text-primary)] font-sans antialiased;
   }
   
   h1, h2, h3, h4, h5, h6 {
     @apply font-serif;
   }
+  
+  ::selection {
+    background: rgb(201 149 60 / 0.2);
+    color: var(--color-primary);
+  }
 }
 
-.gradient-hero {
-  background: linear-gradient(135deg, 
-    var(--color-primary) 0%, 
-    var(--color-primary-light) 50%, 
-    var(--color-accent-blue) 100%);
+/* Elegant section dividers */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--color-border) 20%,
+    var(--color-secondary) 50%,
+    var(--color-border) 80%,
+    transparent 100%
+  );
+  opacity: 0.6;
 }
 
 .glass-effect {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 /* Modal Animations */
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 @keyframes scaleIn {
   from {
     opacity: 0;
-    transform: scale(0.95);
+    transform: scale(0.96) translateY(8px);
   }
   to {
     opacity: 1;
-    transform: scale(1);
+    transform: scale(1) translateY(0);
   }
 }
 
 .animate-fadeIn {
-  animation: fadeIn 0.2s ease-out;
+  animation: fadeIn 0.25s ease-out;
 }
 
 .animate-scaleIn {
-  animation: scaleIn 0.3s ease-out;
+  animation: scaleIn 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* Authorial Overlays (rings + noise + vignette) */
+/* Subtle pattern overlays */
 .overlay-layer {
   position: absolute;
   inset: 0;
@@ -102,45 +111,79 @@
   background: radial-gradient(
     120% 100% at 50% 40%,
     transparent 0%,
-    color-mix(in oklab, var(--color-primary) 10%, transparent) 55%,
-    color-mix(in oklab, var(--color-primary) 16%, transparent) 100%
+    rgb(12 18 32 / 0.04) 55%,
+    rgb(12 18 32 / 0.08) 100%
   );
-  opacity: 0.7;
+  opacity: 0.6;
 }
 
 .overlay-rings {
   background-image:
     repeating-radial-gradient(
       circle at 18% 18%,
-      color-mix(in oklab, var(--color-secondary) 18%, transparent) 0 1px,
-      transparent 1px 26px
+      rgb(201 149 60 / 0.06) 0 1px,
+      transparent 1px 32px
     ),
     repeating-radial-gradient(
       circle at 82% 78%,
-      color-mix(in oklab, var(--color-accent-blue) 14%, transparent) 0 1px,
-      transparent 1px 30px
+      rgb(12 18 32 / 0.04) 0 1px,
+      transparent 1px 36px
     );
-  opacity: 0.35;
-  filter: blur(0.1px);
+  opacity: 0.3;
+  filter: blur(0.2px);
 }
 
 .overlay-noise {
-  /* SVG noise via feTurbulence (tiny + subtle) */
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
   background-repeat: repeat;
-  opacity: 0.08;
+  opacity: 0.04;
   mix-blend-mode: soft-light;
 }
 
 .dark .overlay-vignette {
-  opacity: 0.55;
+  background: radial-gradient(
+    120% 100% at 50% 40%,
+    transparent 0%,
+    rgb(12 18 32 / 0.12) 55%,
+    rgb(12 18 32 / 0.20) 100%
+  );
+  opacity: 0.5;
 }
 
 .dark .overlay-rings {
-  opacity: 0.22;
+  opacity: 0.18;
 }
 
 .dark .overlay-noise {
-  opacity: 0.10;
+  opacity: 0.06;
   mix-blend-mode: overlay;
+}
+
+/* Gold accent line */
+.gold-line {
+  height: 2px;
+  background: linear-gradient(90deg, var(--color-secondary), var(--color-secondary-light), var(--color-secondary));
+  border-radius: 2px;
+}
+
+/* Card hover lift effect */
+.card-hover-lift {
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.card-hover-lift:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-xl);
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Focus styles */
+:focus-visible {
+  outline: 2px solid var(--color-secondary);
+  outline-offset: 2px;
+  border-radius: 4px;
 }

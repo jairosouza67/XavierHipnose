@@ -24,14 +24,21 @@
             theme: {
                 extend: {
                     colors: {
-                        primary: '#0f172a',
-                        secondary: '#fbbf24',
-                        accent: '#334155',
-                        background: '#f8fafc',
+                        primary: '#0c1220',
+                        'primary-light': '#1a2540',
+                        secondary: '#c9953c',
+                        'secondary-light': '#dbb06a',
+                        accent: '#1a2540',
+                        background: '#faf8f5',
+                        cream: '#f7f3ed',
+                        'warm-white': '#faf8f5',
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
                         serif: ['Playfair Display', 'serif'],
+                    },
+                    borderRadius: {
+                        '4xl': '2rem',
                     }
                 }
             }
@@ -61,7 +68,7 @@
 </script>
 <link rel="stylesheet" href="/index.css">
 </head>
-<body class="bg-background text-primary font-sans antialiased dark:bg-slate-900 dark:text-white transition-colors duration-300">
+<body class="bg-warm-white text-primary font-sans antialiased dark:bg-slate-900 dark:text-white transition-colors duration-300">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
     

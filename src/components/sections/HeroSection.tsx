@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import Button from '../ui/Button';
 import AnimatedSection from '../ui/AnimatedSection';
-import { Sparkles, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { useTheme } from '../../contexts/ThemeContext';
 
 interface HeroSectionProps {
@@ -16,57 +16,52 @@ const HeroSection = ({ onAction }: HeroSectionProps) => {
         <div className={isHybrid ? 'dark' : ''}>
             <section
                 id="home"
-                className="relative min-h-screen flex items-center overflow-hidden pt-32 pb-32 bg-white dark:bg-slate-900 transition-colors duration-300"
+                className="relative min-h-screen flex items-center overflow-hidden pt-28 pb-20 lg:pt-32 lg:pb-28 bg-warm-white dark:bg-slate-900 transition-colors duration-300"
                 aria-labelledby="hero-heading"
             >
-                {/* Background Decor - decorative, hidden from screen readers */}
+                {/* Subtle Background Decor */}
                 <div className="absolute inset-0 z-0" aria-hidden="true">
-                    {/* Authorial overlays */}
-                    <div className="overlay-layer overlay-rings" />
-                    <div className="overlay-layer overlay-vignette" />
                     <div className="overlay-layer overlay-noise" />
-
-                    <div className="absolute top-20 right-[-10%] w-[500px] h-[500px] bg-secondary/10 dark:bg-secondary/5 rounded-full blur-[120px]" />
-                    <div className="absolute bottom-20 left-[-10%] w-[400px] h-[400px] bg-primary/20 dark:bg-primary/10 rounded-full blur-[100px]" />
-                    {/* Additional blur circle for smooth transition */}
-                    <div className="absolute bottom-[-15%] right-[20%] w-[350px] h-[350px] bg-secondary/8 dark:bg-secondary/4 rounded-full blur-[100px]" />
+                    <div className="absolute top-16 right-[-8%] w-[600px] h-[600px] bg-secondary/[0.07] rounded-full blur-[140px]" />
+                    <div className="absolute bottom-16 left-[-8%] w-[500px] h-[500px] bg-primary/[0.05] rounded-full blur-[120px]" />
                 </div>
 
-                <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-center relative z-10">
-                    <div className="space-y-8">
+                <div className="max-w-7xl mx-auto px-6 lg:px-8 grid lg:grid-cols-2 gap-16 lg:gap-20 items-center relative z-10">
+                    {/* Left Content */}
+                    <div className="space-y-10">
                         <AnimatedSection direction="left">
-                            <div className="inline-flex items-center gap-2 bg-secondary/10 text-secondary px-4 py-2 rounded-full font-bold text-sm">
-                                <Sparkles size={16} aria-hidden="true" />
-                                <span>Aqui, vidas são transformadas</span>
+                            <div className="inline-flex items-center gap-2.5 bg-secondary/[0.08] text-secondary border border-secondary/20 px-5 py-2.5 rounded-full font-semibold text-sm tracking-wide">
+                                <span className="w-1.5 h-1.5 rounded-full bg-secondary" aria-hidden="true" />
+                                <span>Aqui, vidas sao transformadas</span>
                             </div>
                         </AnimatedSection>
 
                         <AnimatedSection delay={0.1}>
                             <h1
                                 id="hero-heading"
-                                className="font-serif text-primary dark:text-white leading-tight"
+                                className="font-serif text-primary dark:text-white leading-[1.1]"
                             >
-                                <span className="text-4xl md:text-5xl">O comando do seu</span><br />
-                                <span className="text-7xl md:text-8xl text-secondary italic font-bold">TRONO</span>
+                                <span className="block text-4xl md:text-5xl lg:text-[3.5rem] font-normal">O comando do seu</span>
+                                <span className="block text-7xl md:text-8xl lg:text-[7rem] text-secondary italic font-bold mt-1 tracking-tight">TRONO</span>
                             </h1>
                         </AnimatedSection>
 
                         <AnimatedSection delay={0.2}>
-                            <div className="space-y-6 text-lg text-slate-600 dark:text-slate-300 leading-relaxed max-w-xl">
+                            <div className="space-y-5 text-lg text-[var(--color-text-secondary)] dark:text-slate-300 leading-relaxed max-w-xl">
                                 <p>
-                                    Cada pessoa que chega até mim traz uma história única, uma dor única e uma força única.
+                                    Cada pessoa que chega ate mim traz uma historia unica, uma dor unica e uma forca unica.
                                 </p>
                                 <p>
-                                    E elas se esquecem disso: <span className="font-bold text-primary dark:text-white">dentro de todos nós existe um TRONO.</span>
+                                    E elas se esquecem disso: <span className="font-semibold text-primary dark:text-white">dentro de todos nos existe um TRONO.</span>
                                 </p>
                                 <p>
-                                    Você não é um problema a ser "arrumado". Você é alguém que, em algum ponto do caminho, perdeu acesso/controle do seu próprio comando. Mas, quando você entende como sua mente aprende, te protege e repete padrões, você começa a recuperar algo essencial:
+                                    Voce nao e um problema a ser "arrumado". Voce e alguem que, em algum ponto do caminho, perdeu acesso ao seu proprio comando. Mas, quando voce entende como sua mente aprende, te protege e repete padroes, voce comeca a recuperar algo essencial:
                                 </p>
-                                <p className="text-xl font-bold text-primary dark:text-white">
+                                <p className="text-xl font-bold text-primary dark:text-white font-serif italic">
                                     O Comando do seu TRONO.
                                 </p>
                                 <p>
-                                    Meu trabalho é ajudar você a <span className="font-bold text-primary dark:text-white">retornar a ser REI OU RAINHA do seu IMPÉRIO</span>, com profissionalismo, segurança, ética e clareza...
+                                    Meu trabalho e ajudar voce a <span className="font-semibold text-primary dark:text-white">retornar a ser REI OU RAINHA do seu IMPERIO</span>, com profissionalismo, seguranca, etica e clareza...
                                 </p>
                             </div>
                         </AnimatedSection>
@@ -78,41 +73,61 @@ const HeroSection = ({ onAction }: HeroSectionProps) => {
                                 onClick={onAction}
                                 rightIcon={<ArrowRight size={20} aria-hidden="true" />}
                             >
-                                Agendar Avaliação
+                                Agendar Avaliacao
                             </Button>
                             <Button variant="outline" size="lg">
-                                Conhecer o Método
+                                Conhecer o Metodo
                             </Button>
                         </AnimatedSection>
                     </div>
 
+                    {/* Right - Photo */}
                     <AnimatedSection direction="right" delay={0.2} className="relative">
-                        <div className="relative z-10 rounded-[3rem] overflow-hidden shadow-2xl border-8 border-white">
-                            <img
-                                src="/profile.jpg"
-                                alt="Filipe Xavier - Hipnoterapeuta Clínico"
-                                className="w-full h-full object-cover aspect-[4/5]"
-                                loading="eager"
-                            />
+                        <div className="relative">
+                            {/* Decorative gold accent behind the image */}
+                            <div className="absolute -inset-3 bg-secondary/[0.08] rounded-[2.5rem] -rotate-2" aria-hidden="true" />
+                            
+                            <div className="relative z-10 rounded-[2.5rem] overflow-hidden shadow-xl border border-cream dark:border-slate-700">
+                                <img
+                                    src="/profile.jpg"
+                                    alt="Filipe Xavier - Hipnoterapeuta Clinico"
+                                    className="w-full h-full object-cover aspect-[4/5]"
+                                    loading="eager"
+                                />
+                                {/* Subtle overlay at the bottom for depth */}
+                                <div className="absolute inset-0 bg-gradient-to-t from-primary/20 via-transparent to-transparent" aria-hidden="true" />
+                            </div>
                         </div>
-                        {/* Floating Element */}
+
+                        {/* Floating Quote */}
                         <motion.div
-                            animate={{ y: [0, -20, 0] }}
-                            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                            className="absolute -bottom-10 -left-10 bg-white p-8 rounded-3xl shadow-2xl z-20 max-w-[240px]"
+                            animate={{ y: [0, -12, 0] }}
+                            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+                            className="absolute -bottom-8 -left-6 lg:-left-12 bg-white dark:bg-slate-800 p-6 lg:p-8 rounded-2xl shadow-xl border border-cream dark:border-slate-700 z-20 max-w-[220px]"
                             role="complementary"
-                            aria-label="Citação inspiradora"
+                            aria-label="Citacao inspiradora"
                         >
-                            <p className="text-primary font-bold italic text-lg leading-tight">
-                                "A jornada para a mudança começa no seu subconsciente."
+                            <div className="w-8 h-0.5 bg-secondary rounded-full mb-3" aria-hidden="true" />
+                            <p className="text-primary dark:text-white font-serif italic text-base leading-snug">
+                                "A jornada para a mudanca comeca no seu subconsciente."
                             </p>
                         </motion.div>
                     </AnimatedSection>
                 </div>
+
+                {/* Scroll indicator */}
+                <motion.div 
+                    animate={{ y: [0, 8, 0] }}
+                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                    className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden lg:flex flex-col items-center gap-2 text-[var(--color-text-muted)]"
+                    aria-hidden="true"
+                >
+                    <span className="text-xs font-medium tracking-widest uppercase">Explore</span>
+                    <div className="w-px h-8 bg-secondary/40" />
+                </motion.div>
             </section>
         </div>
     );
 };
 
 export default HeroSection;
-

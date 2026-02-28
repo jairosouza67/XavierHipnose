@@ -21,23 +21,23 @@ const Card = ({
   role,
   ...props 
 }: CardProps) => {
-  const baseClasses = 'rounded-2xl transition-colors duration-300';
+  const baseClasses = 'rounded-2xl transition-all duration-300';
   
   const variantClasses = {
-    elevated: 'bg-white dark:bg-slate-800 shadow-md border border-slate-100 dark:border-slate-700',
+    elevated: 'bg-white dark:bg-slate-800 shadow-[var(--shadow-md)] border border-[var(--color-border-light)] dark:border-slate-700 hover:shadow-[var(--shadow-lg)]',
     flat: 'bg-white dark:bg-slate-800',
-    bordered: 'bg-white dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-600',
+    bordered: 'bg-white dark:bg-slate-800 border border-[var(--color-border)] dark:border-slate-600',
     glass: 'glass-effect bg-white/10 dark:bg-slate-800/10 backdrop-blur-md border border-white/20 dark:border-slate-700/20',
   };
   
   const paddingClasses = {
     none: 'p-0',
     sm: 'p-4',
-    md: 'p-6',
-    lg: 'p-12',
+    md: 'p-6 lg:p-8',
+    lg: 'p-8 lg:p-12',
   };
   
-  const classes = `${baseClasses} ${variantClasses[variant]} ${paddingClasses[padding]} ${onClick ? 'cursor-pointer hover:shadow-lg' : ''} ${className}`;
+  const classes = `${baseClasses} ${variantClasses[variant]} ${paddingClasses[padding]} ${onClick ? 'cursor-pointer card-hover-lift' : ''} ${className}`;
   
   return (
     <div 

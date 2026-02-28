@@ -27,19 +27,19 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     },
     ref
   ) => {
-    const baseClasses = 'inline-flex items-center justify-center font-bold rounded-full transition-all focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed';
+    const baseClasses = 'inline-flex items-center justify-center font-semibold rounded-full transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed';
     
     const variantClasses = {
-      primary: 'bg-secondary text-primary hover:bg-secondary/90 focus:ring-secondary',
-      secondary: 'bg-primary text-white hover:bg-primary/90 focus:ring-primary',
-      outline: 'border border-primary text-primary hover:bg-primary hover:text-white dark:border-white dark:text-white dark:hover:bg-white dark:hover:text-primary focus:ring-primary',
-      ghost: 'bg-transparent text-primary hover:bg-slate-100 dark:text-white dark:hover:bg-slate-800 focus:ring-primary',
+      primary: 'bg-secondary text-primary hover:bg-secondary-light focus-visible:ring-secondary shadow-[var(--shadow-gold)] hover:shadow-lg',
+      secondary: 'bg-primary text-[var(--color-text-inverse)] hover:bg-primary-light focus-visible:ring-primary',
+      outline: 'border-2 border-primary text-primary hover:bg-primary hover:text-[var(--color-text-inverse)] dark:border-white/30 dark:text-white dark:hover:bg-white dark:hover:text-primary focus-visible:ring-primary',
+      ghost: 'bg-transparent text-primary hover:bg-cream dark:text-white dark:hover:bg-slate-800 focus-visible:ring-primary',
     };
     
     const sizeClasses = {
-      sm: 'px-4 py-2 text-sm',
-      md: 'px-6 py-3 text-base',
-      lg: 'px-8 py-4 text-lg',
+      sm: 'px-5 py-2.5 text-sm',
+      md: 'px-7 py-3.5 text-base',
+      lg: 'px-9 py-4 text-lg',
     };
     
     const classes = `${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${className}`;

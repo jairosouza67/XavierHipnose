@@ -3,7 +3,7 @@ import Card from '../ui/Card';
 import SectionHeading from './SectionHeading';
 import AnimatedSection from '../ui/AnimatedSection';
 import TreatmentModal from '../ui/TreatmentModal';
-import { Brain, Heart, Zap, Moon, Scale, Apple, GraduationCap, Users, ShieldCheck } from 'lucide-react';
+import { Brain, Heart, Zap, Moon, Scale, Apple, GraduationCap, Users, ShieldCheck, ArrowRight } from 'lucide-react';
 import { Service } from '../../types';
 import { TREATMENT_CONTENT } from '../../content/treatmentContent';
 
@@ -17,42 +17,42 @@ const SERVICES: Service[] = [
     },
     { 
         id: 2, 
-        title: 'Depressão', 
-        description: 'Recupere sua vitalidade e reconecte-se com o sentido e propósito da sua vida.', 
+        title: 'Depressao', 
+        description: 'Recupere sua vitalidade e reconecte-se com o sentido e proposito da sua vida.', 
         icon: 'Heart',
         contentKey: 'depressao',
     },
     { 
         id: 3, 
         title: 'Fobias', 
-        description: 'Supere fobias sociais, medo de dirigir, de avião ou de espaços fechados de forma rápida e segura.', 
+        description: 'Supere fobias sociais, medo de dirigir, de aviao ou de espacos fechados de forma rapida e segura.', 
         icon: 'Zap',
         contentKey: 'fobias',
     },
     { 
         id: 4, 
         title: 'Traumas', 
-        description: 'Ressignifique experiências traumáticas e libere-se do peso emocional do passado.', 
+        description: 'Ressignifique experiencias traumaticas e libere-se do peso emocional do passado.', 
         icon: 'ShieldCheck',
         contentKey: 'trauma',
     },
     { 
         id: 5, 
-        title: 'Compulsões', 
-        description: 'Quebre padrões compulsivos e recupere o controle sobre suas escolhas e comportamentos.', 
+        title: 'Compulsoes', 
+        description: 'Quebre padroes compulsivos e recupere o controle sobre suas escolhas e comportamentos.', 
         icon: 'Scale',
         contentKey: 'compulsoes',
     },
     { 
         id: 6, 
-        title: 'Vícios', 
+        title: 'Vicios', 
         description: 'Liberte-se do tabagismo e outros comportamentos viciantes permanentemente.', 
         icon: 'Moon',
         contentKey: 'vicios',
     },
     { 
         id: 7, 
-        title: 'Insônia', 
+        title: 'Insonia', 
         description: 'Reconquiste noites de sono reparador e acorde revigorado todos os dias.', 
         icon: 'Moon',
         contentKey: 'insonia',
@@ -60,14 +60,14 @@ const SERVICES: Service[] = [
     { 
         id: 8, 
         title: 'Estresse', 
-        description: 'Aprenda a controlar suas respostas ao estresse e recupere seu equilíbrio emocional.', 
+        description: 'Aprenda a controlar suas respostas ao estresse e recupere seu equilibrio emocional.', 
         icon: 'Brain',
         contentKey: 'estresse',
     },
     { 
         id: 9, 
-        title: 'Angústia', 
-        description: 'Transforme sentimentos de angústia em clareza mental e bem-estar emocional.', 
+        title: 'Angustia', 
+        description: 'Transforme sentimentos de angustia em clareza mental e bem-estar emocional.', 
         icon: 'Heart',
         contentKey: 'angustia',
     },
@@ -81,17 +81,15 @@ const ServicesSection = () => {
     return (
         <section
             id="servicos"
-            className="relative overflow-hidden py-32 bg-slate-50 dark:bg-slate-900 transition-colors duration-300"
+            className="relative overflow-hidden py-28 lg:py-36 bg-cream dark:bg-slate-900/80 transition-colors duration-300"
             aria-labelledby="services-heading"
         >
-            {/* Background overlays */}
+            {/* Subtle background accents */}
             <div className="absolute inset-0 z-0" aria-hidden="true">
-                <div className="overlay-layer overlay-rings" />
-                <div className="overlay-layer overlay-vignette" />
                 <div className="overlay-layer overlay-noise" />
             </div>
 
-            <div className="relative z-10 max-w-7xl mx-auto px-6">
+            <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
                 <div className="text-center mb-20">
                     <SectionHeading
                         subtitle="Especialidades"
@@ -101,44 +99,47 @@ const ServicesSection = () => {
                 </div>
 
                 <ul
-                    className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 list-none p-0"
+                    className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 list-none p-0"
                     role="list"
-                    aria-label="Lista de tratamentos disponíveis"
+                    aria-label="Lista de tratamentos disponiveis"
                 >
                     {SERVICES.map((service, index) => {
                         const Icon = iconMap[service.icon] || ShieldCheck;
                         return (
                             <li key={service.id}>
-                                <AnimatedSection delay={index * 0.1}>
+                                <AnimatedSection delay={index * 0.08}>
                                     <Card
-                                        className="group h-full cursor-pointer"
+                                        className="group h-full cursor-pointer relative overflow-hidden"
                                         aria-labelledby={`service-${service.id}-title`}
                                         onClick={() => setSelectedService(service)}
                                     >
+                                        {/* Hover accent */}
+                                        <div className="absolute top-0 left-0 w-full h-1 bg-secondary scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" aria-hidden="true" />
+                                        
                                         <div
-                                            className="w-16 h-16 bg-white dark:bg-slate-700 rounded-2xl flex items-center justify-center mb-8 text-primary dark:text-white group-hover:bg-secondary transition-colors duration-500"
+                                            className="w-14 h-14 bg-cream dark:bg-slate-700 rounded-xl flex items-center justify-center mb-6 text-primary dark:text-white group-hover:bg-secondary group-hover:text-primary transition-all duration-500"
                                             aria-hidden="true"
                                         >
-                                            <Icon size={32} />
+                                            <Icon size={28} />
                                         </div>
                                         <h3
                                             id={`service-${service.id}-title`}
-                                            className="text-2xl font-bold mb-4 text-primary dark:text-white group-hover:text-secondary transition-colors duration-500"
+                                            className="text-xl font-bold mb-3 text-primary dark:text-white group-hover:text-secondary transition-colors duration-500"
                                         >
                                             {service.title}
                                         </h3>
-                                        <p className="text-slate-500 dark:text-slate-300 leading-relaxed mb-8">
+                                        <p className="text-[var(--color-text-muted)] dark:text-slate-300 leading-relaxed mb-6 text-[0.95rem]">
                                             {service.description}
                                         </p>
                                         <button
-                                            className="flex items-center gap-2 text-primary dark:text-white font-bold text-sm cursor-pointer hover:gap-4 transition-all bg-transparent border-none p-0"
+                                            className="flex items-center gap-2 text-secondary font-semibold text-sm cursor-pointer group-hover:gap-3 transition-all bg-transparent border-none p-0"
                                             aria-label={`Saber mais sobre ${service.title}`}
                                             onClick={(e) => {
                                                 e.stopPropagation();
                                                 setSelectedService(service);
                                             }}
                                         >
-                                            Saber mais <Zap size={16} className="text-secondary" aria-hidden="true" />
+                                            Saber mais <ArrowRight size={14} aria-hidden="true" />
                                         </button>
                                     </Card>
                                 </AnimatedSection>

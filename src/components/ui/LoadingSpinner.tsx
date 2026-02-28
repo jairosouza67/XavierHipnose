@@ -22,7 +22,7 @@ const LoadingSpinner = ({ size = 'md', text = 'Carregando...' }: LoadingSpinnerP
             <motion.div
                 animate={{ rotate: 360 }}
                 transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
-                className={`${sizes[size]} border-4 border-slate-200 border-t-secondary rounded-full`}
+                className={`${sizes[size]} border-3 border-[var(--color-border)] border-t-secondary rounded-full`}
             />
             <span className="text-slate-500 text-sm font-medium sr-only">{text}</span>
         </div>

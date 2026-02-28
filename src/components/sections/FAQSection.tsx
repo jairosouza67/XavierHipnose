@@ -6,10 +6,10 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FAQ } from '../../types';
 
 const FAQS: FAQ[] = [
-    { q: "A hipnose é segura?", a: "Totalmente. A hipnose é um estado natural da mente humana. Durante a sessão, você está sempre no controle e consciente." },
-    { q: "Quantas sessões são necessárias?", a: "O tratamento é breve. A maioria dos casos é resolvida entre 1 a 4 sessões, dependendo da complexidade." },
-    { q: "Eu vou dormir durante a sessão?", a: "Não. Você estará em um estado de relaxamento profundo, mas acordado e ouvindo tudo o que acontece." },
-    { q: "A hipnoterapia serve para mim?", a: "Se você tem vontade de mudar e consegue seguir instruções simples, a hipnoterapia é altamente eficaz para você." },
+    { q: "A hipnose e segura?", a: "Totalmente. A hipnose e um estado natural da mente humana. Durante a sessao, voce esta sempre no controle e consciente." },
+    { q: "Quantas sessoes sao necessarias?", a: "O tratamento e breve. A maioria dos casos e resolvida entre 1 a 4 sessoes, dependendo da complexidade." },
+    { q: "Eu vou dormir durante a sessao?", a: "Nao. Voce estara em um estado de relaxamento profundo, mas acordado e ouvindo tudo o que acontece." },
+    { q: "A hipnoterapia serve para mim?", a: "Se voce tem vontade de mudar e consegue seguir instrucoes simples, a hipnoterapia e altamente eficaz para voce." },
 ];
 
 const FAQSection = () => {
@@ -29,13 +29,13 @@ const FAQSection = () => {
     return (
         <section
             id="faq"
-            className="py-32 bg-slate-50 dark:bg-slate-900 transition-colors duration-300"
+            className="py-28 lg:py-36 bg-warm-white dark:bg-slate-900 transition-colors duration-300"
             aria-labelledby="faq-heading"
         >
-            <div className="max-w-3xl mx-auto px-6">
+            <div className="max-w-3xl mx-auto px-6 lg:px-8">
                 <div className="text-center mb-16">
                     <SectionHeading
-                        subtitle="Dúvidas"
+                        subtitle="Duvidas"
                         title="Perguntas Frequentes"
                         headingId="faq-heading"
                     />
@@ -44,7 +44,7 @@ const FAQSection = () => {
                 <div
                     className="space-y-4"
                     role="region"
-                    aria-label="Seção de perguntas frequentes"
+                    aria-label="Secao de perguntas frequentes"
                 >
                     {FAQS.map((faq, i) => {
                         const isOpen = openIdx === i;
@@ -52,23 +52,24 @@ const FAQSection = () => {
                         const panelId = `faq-panel-${i}`;
 
                         return (
-                            <AnimatedSection key={i} delay={i * 0.1}>
-                                <div className="bg-white dark:bg-slate-800 rounded-3xl border border-slate-100 dark:border-slate-700 overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+                            <AnimatedSection key={i} delay={i * 0.08}>
+                                <div className="bg-white dark:bg-slate-800 rounded-2xl border border-[var(--color-border-light)] dark:border-slate-700 overflow-hidden transition-all duration-300 hover:border-secondary/30">
                                     <button
                                         id={headerId}
                                         onClick={() => handleToggle(i)}
                                         onKeyDown={(e) => handleKeyDown(e, i)}
                                         aria-expanded={isOpen}
                                         aria-controls={panelId}
-                                        className="w-full px-8 py-6 flex items-center justify-between text-left bg-transparent border-none cursor-pointer"
+                                        className="w-full px-6 lg:px-8 py-5 lg:py-6 flex items-center justify-between text-left bg-transparent border-none cursor-pointer"
                                     >
-                                        <span className="font-bold text-primary dark:text-white text-lg">{faq.q}</span>
+                                        <span className="font-semibold text-primary dark:text-white text-base lg:text-lg pr-4">{faq.q}</span>
                                         <motion.div
                                             animate={{ rotate: isOpen ? 180 : 0 }}
-                                            className="text-secondary"
+                                            transition={{ duration: 0.3 }}
+                                            className="text-secondary shrink-0"
                                             aria-hidden="true"
                                         >
-                                            <ChevronDown size={24} />
+                                            <ChevronDown size={20} />
                                         </motion.div>
                                     </button>
                                     <AnimatePresence>
@@ -80,9 +81,10 @@ const FAQSection = () => {
                                                 initial={{ height: 0, opacity: 0 }}
                                                 animate={{ height: 'auto', opacity: 1 }}
                                                 exit={{ height: 0, opacity: 0 }}
-                                                className="px-8 pb-6"
+                                                transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                                                className="px-6 lg:px-8 pb-5 lg:pb-6"
                                             >
-                                                <p className="text-slate-500 dark:text-slate-300 leading-relaxed border-t border-slate-50 dark:border-slate-700 pt-6">
+                                                <p className="text-[var(--color-text-muted)] dark:text-slate-300 leading-relaxed border-t border-[var(--color-border-light)] dark:border-slate-700 pt-5">
                                                     {faq.a}
                                                 </p>
                                             </motion.div>
